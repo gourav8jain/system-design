@@ -26,7 +26,7 @@ import {
   Architecture,
   TrendingUp,
   CheckCircle,
-  ExternalLink,
+  OpenInNew,
 } from '@mui/icons-material';
 
 const Resources = () => {
@@ -320,7 +320,7 @@ const Resources = () => {
                     href={tool.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    startIcon={<ExternalLink />}
+                    startIcon={<OpenInNew />}
                     size="small"
                   >
                     Visit Tool
@@ -436,7 +436,7 @@ const Resources = () => {
                     href={resource.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    startIcon={<ExternalLink />}
+                    startIcon={<OpenInNew />}
                     size="small"
                   >
                     Visit Resource
@@ -494,7 +494,7 @@ const Resources = () => {
                     href={resource.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    startIcon={<ExternalLink />}
+                    startIcon={<OpenInNew />}
                     size="small"
                     fullWidth
                   >
