@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import {
   Container,
@@ -15,37 +15,26 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListItemIcon,
-  Divider,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
 import {
-  ExpandMore,
   CheckCircle,
   TrendingUp,
   Speed,
-  Security,
-  Cloud,
-  Architecture,
-  Storage,
-  Code,
-  School,
   ArrowBack,
+  School,
+  Code,
 } from '@mui/icons-material';
 
 const ProblemDetail = () => {
   const { problemId } = useParams();
   const [selectedTab, setSelectedTab] = useState(0);
-  const [expanded, setExpanded] = useState('panel1');
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
-  };
-
-  const handleAccordionChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
   };
 
   // Mock data for different problems - in a real app, this would come from an API
@@ -285,7 +274,7 @@ const ProblemDetail = () => {
 
   if (!problem) {
     return (
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
         <Box sx={{ textAlign: 'center', py: 8 }}>
           <Typography variant="h4" gutterBottom>
             Problem Not Found
@@ -301,27 +290,28 @@ const ProblemDetail = () => {
   const tabLabels = ['Overview', 'Architecture', 'Database', 'Optimization', 'Security'];
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
       {/* Header */}
-      <Box sx={{ py: 4 }}>
+      <Box sx={{ py: { xs: 3, md: 4 } }}>
         <Button
           component={RouterLink}
           to="/problems"
           startIcon={<ArrowBack />}
           sx={{ mb: 2 }}
+          fullWidth={isMobile}
         >
           Back to Problems
         </Button>
         
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-          <Typography variant="h1" sx={{ mr: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3, flexDirection: { xs: 'column', sm: 'row' } }}>
+          <Typography variant={isMobile ? "h2" : "h1"} sx={{ mr: { xs: 0, sm: 2 }, mb: { xs: 1, sm: 0 } }}>
             {problem.icon}
           </Typography>
-          <Box>
-            <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
+          <Box sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
+            <Typography variant={isMobile ? "h3" : "h2"} component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
               {problem.title}
             </Typography>
-            <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+            <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', justifyContent: { xs: 'center', sm: 'flex-start' } }}>
               <Chip
                 label={problem.difficulty}
                 color={
@@ -336,7 +326,7 @@ const ProblemDetail = () => {
           </Box>
         </Box>
 
-        <Typography variant="h6" color="text.secondary" paragraph>
+        <Typography variant={isMobile ? "body1" : "h6"} color="text.secondary" paragraph>
           {problem.description}
         </Typography>
       </Box>
@@ -360,7 +350,7 @@ const ProblemDetail = () => {
       {selectedTab === 0 && (
         <Box>
           {/* Requirements */}
-          <Grid container spacing={4} sx={{ mb: 4 }}>
+          <Grid container spacing={3} sx={{ mb: 4 }}>
             <Grid item xs={12} md={6}>
               <Card>
                 <CardContent>
@@ -456,7 +446,7 @@ const ProblemDetail = () => {
                   p: 2,
                   borderRadius: 1,
                   overflow: 'auto',
-                  fontSize: '0.8rem',
+                  fontSize: { xs: '0.7rem', sm: '0.8rem' },
                   fontFamily: 'monospace',
                   whiteSpace: 'pre',
                 }}
@@ -524,7 +514,7 @@ const ProblemDetail = () => {
 
       {selectedTab === 3 && (
         <Box>
-          <Grid container spacing={4}>
+          <Grid container spacing={3}>
             <Grid item xs={12} md={6}>
               <Card>
                 <CardContent>
@@ -590,7 +580,7 @@ const ProblemDetail = () => {
 
       {/* Additional Resources */}
       <Box sx={{ mt: 6 }}>
-        <Typography variant="h4" component="h2" gutterBottom sx={{ textAlign: 'center', mb: 4 }}>
+        <Typography variant={isMobile ? "h5" : "h4"} component="h2" gutterBottom sx={{ textAlign: 'center', mb: 4 }}>
           🚀 Next Steps
         </Typography>
         <Grid container spacing={3}>

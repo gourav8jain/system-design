@@ -15,12 +15,16 @@ import {
   TextField,
   InputAdornment,
   Paper,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
 import { Search, Code, TrendingUp, School } from '@mui/icons-material';
 
 const Problems = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const problems = {
     basic: [
@@ -201,13 +205,22 @@ const Problems = () => {
   const tabLabels = ['Basic Level', 'Intermediate Level', 'Advanced Level'];
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
       {/* Header */}
-      <Box sx={{ textAlign: 'center', py: 6 }}>
-        <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
+      <Box sx={{ textAlign: 'center', py: { xs: 4, md: 6 } }}>
+        <Typography 
+          variant={isMobile ? "h3" : "h2"} 
+          component="h1" 
+          gutterBottom 
+          sx={{ fontWeight: 'bold' }}
+        >
           🚀 System Design Problems
         </Typography>
-        <Typography variant="h6" color="text.secondary" paragraph>
+        <Typography 
+          variant={isMobile ? "body1" : "h6"} 
+          color="text.secondary" 
+          paragraph
+        >
           Master system design through hands-on problem solving
         </Typography>
       </Box>
@@ -246,7 +259,9 @@ const Problems = () => {
                         {index === 0 && <Code color="success" />}
                         {index === 1 && <TrendingUp color="warning" />}
                         {index === 2 && <School color="error" />}
-                        {label}
+                        <Typography sx={{ display: { xs: 'none', sm: 'inline' } }}>
+                          {label}
+                        </Typography>
                       </Box>
                     }
                   />
@@ -258,17 +273,17 @@ const Problems = () => {
       </Box>
 
       {/* Problems Grid */}
-      <Grid container spacing={4}>
+      <Grid container spacing={3}>
         {filteredProblems().map((problem) => (
           <Grid item xs={12} md={6} lg={4} key={problem.id}>
             <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
               <CardContent sx={{ flexGrow: 1 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                  <Typography variant="h2" sx={{ mr: 2 }}>
+                  <Typography variant={isMobile ? "h3" : "h2"} sx={{ mr: 2 }}>
                     {problem.icon}
                   </Typography>
                   <Box>
-                    <Typography variant="h5" component="h3" gutterBottom>
+                    <Typography variant={isMobile ? "h6" : "h5"} component="h3" gutterBottom>
                       {problem.title}
                     </Typography>
                     <Box sx={{ display: 'flex', gap: 1, mb: 1, flexWrap: 'wrap' }}>

@@ -65,7 +65,7 @@ const Navbar = () => {
       <AppBar position="sticky" elevation={2}>
         <Toolbar>
           <Typography
-            variant="h6"
+            variant={isMobile ? "body1" : "h6"}
             component="div"
             sx={{ flexGrow: 1, fontWeight: 'bold' }}
           >

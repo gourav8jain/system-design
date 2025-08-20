@@ -14,22 +14,20 @@ import {
   ListItemText,
   ListItemIcon,
   Paper,
-  Divider,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
 import {
   Book,
   School,
-  Code,
-  Cloud,
-  Security,
-  Speed,
-  Architecture,
-  TrendingUp,
   CheckCircle,
   OpenInNew,
 } from '@mui/icons-material';
 
 const Resources = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
   const books = [
     {
       title: 'Designing Data-Intensive Applications',
@@ -195,23 +193,37 @@ const Resources = () => {
   ];
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
       {/* Header */}
-      <Box sx={{ textAlign: 'center', py: 6 }}>
-        <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
+      <Box sx={{ textAlign: 'center', py: { xs: 4, md: 6 } }}>
+        <Typography 
+          variant={isMobile ? "h3" : "h2"} 
+          component="h1" 
+          gutterBottom 
+          sx={{ fontWeight: 'bold' }}
+        >
           📚 Learning Resources
         </Typography>
-        <Typography variant="h6" color="text.secondary" paragraph>
+        <Typography 
+          variant={isMobile ? "body1" : "h6"} 
+          color="text.secondary" 
+          paragraph
+        >
           Books, tools, and resources to accelerate your system design journey
         </Typography>
       </Box>
 
       {/* Books Section */}
-      <Box sx={{ mb: 6 }}>
-        <Typography variant="h3" component="h2" gutterBottom sx={{ textAlign: 'center', mb: 4 }}>
+      <Box sx={{ mb: { xs: 4, md: 6 } }}>
+        <Typography 
+          variant={isMobile ? "h4" : "h3"} 
+          component="h2" 
+          gutterBottom 
+          sx={{ textAlign: 'center', mb: { xs: 3, md: 4 } }}
+        >
           📖 Essential Books
         </Typography>
-        <Grid container spacing={4}>
+        <Grid container spacing={3}>
           {books.map((book, index) => (
             <Grid item xs={12} md={6} key={index}>
               <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -275,11 +287,16 @@ const Resources = () => {
       </Box>
 
       {/* Tools Section */}
-      <Box sx={{ mb: 6 }}>
-        <Typography variant="h3" component="h2" gutterBottom sx={{ textAlign: 'center', mb: 4 }}>
+      <Box sx={{ mb: { xs: 4, md: 6 } }}>
+        <Typography 
+          variant={isMobile ? "h4" : "h3"} 
+          component="h2" 
+          gutterBottom 
+          sx={{ textAlign: 'center', mb: { xs: 3, md: 4 } }}
+        >
           🛠️ Essential Tools
         </Typography>
-        <Grid container spacing={4}>
+        <Grid container spacing={3}>
           {tools.map((tool, index) => (
             <Grid item xs={12} md={6} key={index}>
               <Card>
@@ -322,6 +339,7 @@ const Resources = () => {
                     rel="noopener noreferrer"
                     startIcon={<OpenInNew />}
                     size="small"
+                    fullWidth={isMobile}
                   >
                     Visit Tool
                   </Button>
@@ -333,11 +351,16 @@ const Resources = () => {
       </Box>
 
       {/* Learning Paths */}
-      <Box sx={{ mb: 6 }}>
-        <Typography variant="h3" component="h2" gutterBottom sx={{ textAlign: 'center', mb: 4 }}>
+      <Box sx={{ mb: { xs: 4, md: 6 } }}>
+        <Typography 
+          variant={isMobile ? "h4" : "h3"} 
+          component="h2" 
+          gutterBottom 
+          sx={{ textAlign: 'center', mb: { xs: 3, md: 4 } }}
+        >
           🎯 Learning Paths
         </Typography>
-        <Grid container spacing={4}>
+        <Grid container spacing={3}>
           {learningPaths.map((path, index) => (
             <Grid item xs={12} md={4} key={index}>
               <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -391,11 +414,16 @@ const Resources = () => {
       </Box>
 
       {/* Online Resources */}
-      <Box sx={{ mb: 6 }}>
-        <Typography variant="h3" component="h2" gutterBottom sx={{ textAlign: 'center', mb: 4 }}>
+      <Box sx={{ mb: { xs: 4, md: 6 } }}>
+        <Typography 
+          variant={isMobile ? "h4" : "h3"} 
+          component="h2" 
+          gutterBottom 
+          sx={{ textAlign: 'center', mb: { xs: 3, md: 4 } }}
+        >
           🌐 Online Resources
         </Typography>
-        <Grid container spacing={4}>
+        <Grid container spacing={3}>
           {onlineResources.map((resource, index) => (
             <Grid item xs={12} md={6} key={index}>
               <Card>
@@ -438,6 +466,7 @@ const Resources = () => {
                     rel="noopener noreferrer"
                     startIcon={<OpenInNew />}
                     size="small"
+                    fullWidth={isMobile}
                   >
                     Visit Resource
                   </Button>
@@ -449,11 +478,16 @@ const Resources = () => {
       </Box>
 
       {/* Practice Resources */}
-      <Box sx={{ mb: 6 }}>
-        <Typography variant="h3" component="h2" gutterBottom sx={{ textAlign: 'center', mb: 4 }}>
+      <Box sx={{ mb: { xs: 4, md: 6 } }}>
+        <Typography 
+          variant={isMobile ? "h4" : "h3"} 
+          component="h2" 
+          gutterBottom 
+          sx={{ textAlign: 'center', mb: { xs: 3, md: 4 } }}
+        >
           🎯 Practice Resources
         </Typography>
-        <Grid container spacing={4}>
+        <Grid container spacing={3}>
           {practiceResources.map((resource, index) => (
             <Grid item xs={12} md={4} key={index}>
               <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -508,15 +542,22 @@ const Resources = () => {
       </Box>
 
       {/* Call to Action */}
-      <Box sx={{ textAlign: 'center', py: 4 }}>
-        <Paper elevation={3} sx={{ p: 4, bgcolor: 'secondary.main', color: 'white' }}>
-          <Typography variant="h4" component="h2" gutterBottom>
+      <Box sx={{ textAlign: 'center', py: { xs: 3, md: 4 } }}>
+        <Paper elevation={3} sx={{ p: { xs: 3, md: 4 }, bgcolor: 'secondary.main', color: 'white' }}>
+          <Typography variant={isMobile ? "h5" : "h4"} component="h2" gutterBottom>
             🚀 Ready to Master System Design?
           </Typography>
-          <Typography variant="h6" paragraph>
+          <Typography variant={isMobile ? "body1" : "h6"} paragraph>
             Start with the fundamentals and build your way up to complex distributed systems
           </Typography>
-          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, flexWrap: 'wrap', mt: 3 }}>
+          <Box sx={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            gap: 2, 
+            flexWrap: 'wrap', 
+            mt: 3,
+            flexDirection: { xs: 'column', sm: 'row' }
+          }}>
             <Chip label="Study the books" color="inherit" variant="outlined" />
             <Chip label="Use the tools" color="inherit" variant="outlined" />
             <Chip label="Follow the paths" color="inherit" variant="outlined" />

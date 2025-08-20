@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Container,
   Typography,
@@ -6,38 +6,23 @@ import {
   Grid,
   Card,
   CardContent,
-  CardActions,
-  Button,
   Chip,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
   Paper,
   List,
   ListItem,
   ListItemText,
   ListItemIcon,
-  Divider,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
 import {
-  ExpandMore,
   CheckCircle,
   Warning,
-  Lightbulb,
-  Timer,
-  School,
-  TrendingUp,
-  Security,
-  Speed,
-  Cloud,
 } from '@mui/icons-material';
 
 const Interview = () => {
-  const [expanded, setExpanded] = useState('panel1');
-
-  const handleAccordionChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
-  };
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const interviewFramework = [
     {
@@ -169,20 +154,34 @@ const Interview = () => {
   };
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
       {/* Header */}
-      <Box sx={{ textAlign: 'center', py: 6 }}>
-        <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
+      <Box sx={{ textAlign: 'center', py: { xs: 4, md: 6 } }}>
+        <Typography 
+          variant={isMobile ? "h3" : "h2"} 
+          component="h1" 
+          gutterBottom 
+          sx={{ fontWeight: 'bold' }}
+        >
           🎯 System Design Interview Prep
         </Typography>
-        <Typography variant="h6" color="text.secondary" paragraph>
+        <Typography 
+          variant={isMobile ? "body1" : "h6"} 
+          color="text.secondary" 
+          paragraph
+        >
           Master the framework, avoid common pitfalls, and ace your interviews
         </Typography>
       </Box>
 
       {/* Interview Framework */}
-      <Box sx={{ mb: 6 }}>
-        <Typography variant="h3" component="h2" gutterBottom sx={{ textAlign: 'center', mb: 4 }}>
+      <Box sx={{ mb: { xs: 4, md: 6 } }}>
+        <Typography 
+          variant={isMobile ? "h4" : "h3"} 
+          component="h2" 
+          gutterBottom 
+          sx={{ textAlign: 'center', mb: { xs: 3, md: 4 } }}
+        >
           📋 Interview Framework
         </Typography>
         <Grid container spacing={3}>
@@ -228,11 +227,16 @@ const Interview = () => {
       </Box>
 
       {/* Scale Estimation Cheat Sheet */}
-      <Box sx={{ mb: 6 }}>
-        <Typography variant="h3" component="h2" gutterBottom sx={{ textAlign: 'center', mb: 4 }}>
+      <Box sx={{ mb: { xs: 4, md: 6 } }}>
+        <Typography 
+          variant={isMobile ? "h4" : "h3"} 
+          component="h2" 
+          gutterBottom 
+          sx={{ textAlign: 'center', mb: { xs: 3, md: 4 } }}
+        >
           📊 Scale Estimation Cheat Sheet
         </Typography>
-        <Grid container spacing={4}>
+        <Grid container spacing={3}>
           <Grid item xs={12} md={4}>
             <Card>
               <CardContent>
@@ -302,8 +306,13 @@ const Interview = () => {
       </Box>
 
       {/* Common Pitfalls */}
-      <Box sx={{ mb: 6 }}>
-        <Typography variant="h3" component="h2" gutterBottom sx={{ textAlign: 'center', mb: 4 }}>
+      <Box sx={{ mb: { xs: 4, md: 6 } }}>
+        <Typography 
+          variant={isMobile ? "h4" : "h3"} 
+          component="h2" 
+          gutterBottom 
+          sx={{ textAlign: 'center', mb: { xs: 3, md: 4 } }}
+        >
           ⚠️ Common Pitfalls to Avoid
         </Typography>
         <Grid container spacing={3}>
@@ -331,8 +340,13 @@ const Interview = () => {
       </Box>
 
       {/* Pro Tips */}
-      <Box sx={{ mb: 6 }}>
-        <Typography variant="h3" component="h2" gutterBottom sx={{ textAlign: 'center', mb: 4 }}>
+      <Box sx={{ mb: { xs: 4, md: 6 } }}>
+        <Typography 
+          variant={isMobile ? "h4" : "h3"} 
+          component="h2" 
+          gutterBottom 
+          sx={{ textAlign: 'center', mb: { xs: 3, md: 4 } }}
+        >
           💡 Pro Tips
         </Typography>
         <Grid container spacing={3}>
@@ -358,119 +372,23 @@ const Interview = () => {
         </Grid>
       </Box>
 
-      {/* Detailed Strategies */}
-      <Box sx={{ mb: 6 }}>
-        <Typography variant="h3" component="h2" gutterBottom sx={{ textAlign: 'center', mb: 4 }}>
-          🔧 Detailed Strategies
-        </Typography>
-        
-        <Accordion expanded={expanded === 'panel1'} onChange={handleAccordionChange('panel1')}>
-          <AccordionSummary expandIcon={<ExpandMore />}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Timer />
-              <Typography variant="h6">Time Management</Typography>
-            </Box>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography variant="body1" paragraph>
-              Effective time management is crucial in system design interviews. Allocate your time wisely:
-            </Typography>
-            <List>
-              <ListItem>
-                <ListItemIcon><CheckCircle color="success" /></ListItemIcon>
-                <ListItemText primary="Spend 5-10 minutes on requirements and clarification" />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon><CheckCircle color="success" /></ListItemIcon>
-                <ListItemText primary="Use 10-15 minutes for high-level architecture" />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon><CheckCircle color="success" /></ListItemIcon>
-                <ListItemText primary="Dedicate 15-20 minutes to detailed design" />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon><CheckCircle color="success" /></ListItemIcon>
-                <ListItemText primary="Reserve 10-15 minutes for deep dive and optimization" />
-              </ListItem>
-            </List>
-          </AccordionDetails>
-        </Accordion>
-
-        <Accordion expanded={expanded === 'panel2'} onChange={handleAccordionChange('panel2')}>
-          <AccordionSummary expandIcon={<ExpandMore />}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <School />
-              <Typography variant="h6">Communication Skills</Typography>
-            </Box>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography variant="body1" paragraph>
-              Clear communication is as important as technical knowledge:
-            </Typography>
-            <List>
-              <ListItem>
-                <ListItemIcon><CheckCircle color="success" /></ListItemIcon>
-                <ListItemText primary="Think aloud and explain your reasoning" />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon><CheckCircle color="success" /></ListItemIcon>
-                <ListItemText primary="Use visual aids and draw diagrams" />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon><CheckCircle color="success" /></ListItemIcon>
-                <ListItemText primary="Ask clarifying questions when needed" />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon><CheckCircle color="success" /></ListItemIcon>
-                <ListItemText primary="Summarize your approach at the end" />
-              </ListItem>
-            </List>
-          </AccordionDetails>
-        </Accordion>
-
-        <Accordion expanded={expanded === 'panel3'} onChange={handleAccordionChange('panel3')}>
-          <AccordionSummary expandIcon={<ExpandMore />}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <TrendingUp />
-              <Typography variant="h6">Scaling Strategies</Typography>
-            </Box>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography variant="body1" paragraph>
-              Understanding scaling strategies is essential for system design:
-            </Typography>
-            <List>
-              <ListItem>
-                <ListItemIcon><CheckCircle color="success" /></ListItemIcon>
-                <ListItemText primary="Horizontal vs Vertical scaling trade-offs" />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon><CheckCircle color="success" /></ListItemIcon>
-                <ListItemText primary="Load balancing and auto-scaling strategies" />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon><CheckCircle color="success" /></ListItemIcon>
-                <ListItemText primary="Database sharding and read replicas" />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon><CheckCircle color="success" /></ListItemIcon>
-                <ListItemText primary="Caching strategies and CDN implementation" />
-              </ListItem>
-            </List>
-          </AccordionDetails>
-        </Accordion>
-      </Box>
-
       {/* Success Formula */}
-      <Box sx={{ textAlign: 'center', py: 4 }}>
-        <Paper elevation={3} sx={{ p: 4, bgcolor: 'primary.main', color: 'white' }}>
-          <Typography variant="h4" component="h2" gutterBottom>
+      <Box sx={{ textAlign: 'center', py: { xs: 3, md: 4 } }}>
+        <Paper elevation={3} sx={{ p: { xs: 3, md: 4 }, bgcolor: 'primary.main', color: 'white' }}>
+          <Typography variant={isMobile ? "h5" : "h4"} component="h2" gutterBottom>
             🎉 Success Formula
           </Typography>
-          <Typography variant="h6" paragraph>
+          <Typography variant={isMobile ? "body1" : "h6"} paragraph>
             Preparation + Practice + Communication = Success
           </Typography>
-          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, flexWrap: 'wrap', mt: 3 }}>
+          <Box sx={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            gap: 2, 
+            flexWrap: 'wrap', 
+            mt: 3,
+            flexDirection: { xs: 'column', sm: 'row' }
+          }}>
             <Chip label="Study the fundamentals" color="inherit" variant="outlined" />
             <Chip label="Practice common problems" color="inherit" variant="outlined" />
             <Chip label="Communicate clearly" color="inherit" variant="outlined" />
