@@ -1165,6 +1165,230 @@ const ProblemDetail = () => {
         'Geographic content restrictions',
       ],
     },
+    'instagram': {
+      title: 'Instagram',
+      icon: '📸',
+      description: 'Design an Instagram-like social media platform with photo sharing, stories, reels, and social interactions.',
+      difficulty: 'Intermediate',
+      category: 'Social Media',
+      scale: 'Very High',
+      complexity: 'High',
+      requirements: {
+        functional: [
+          'Photo/Video Sharing: Upload and share media content',
+          'Stories: 24-hour temporary content',
+          'Reels: Short-form video content',
+          'User Profiles: Bio, posts, followers, following',
+          'Feed Generation: Personalized content timeline',
+          'Direct Messaging: Private conversations',
+          'Explore Page: Content discovery and recommendations',
+          'Hashtags & Search: Content categorization and discovery',
+        ],
+        nonFunctional: [
+          'Scale: Handle 1B+ users and 100M+ posts per day',
+          'Performance: < 2s feed load time',
+          'Availability: 99.9% uptime',
+          'Media Quality: High-resolution image and video support',
+          'Real-time: Instant notifications and updates',
+        ],
+      },
+      scaleEstimation: {
+        users: '1B+ daily active users',
+        posts: '100M+ posts per day',
+        stories: '500M+ stories per day',
+        media: '50PB+ total media storage',
+        bandwidth: '200TB+ daily bandwidth',
+      },
+      architecture: {
+        components: [
+          'Media Upload Service',
+          'Feed Generation Service',
+          'User Management Service',
+          'Content Discovery Service',
+          'Notification Service',
+          'Media Storage (S3)',
+          'Content Delivery Network (CDN)',
+          'Recommendation Engine',
+        ],
+        diagram: `
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│ Web Client  │    │ Mobile App  │    │ API Client  │
+└─────┬───────┘    └─────┬───────┘    └─────┬───────┘
+      │                  │                  │
+      └──────────────────┼──────────────────┘
+                         │
+              ┌───────────▼───────────┐
+              │   Load Balancer      │
+              └───────────┬───────────┘
+                         │
+          ┌──────────────┼──────────────┐
+          │              │              │
+┌─────────▼─────────┐ ┌─▼─────────┐ ┌─▼─────────┐
+│ Media Upload      │ │Feed       │ │User Mgmt  │
+│ Service           │ │Service    │ │Service    │
+└───────────────────┘ └───────────┘ └───────────┘
+                         │
+              ┌───────────▼───────────┐
+              │   Media Storage      │
+              │      (S3 + CDN)      │
+              └───────────────────────┘
+        `,
+      },
+      database: {
+        tables: [
+          {
+            name: 'users',
+            fields: ['id', 'username', 'email', 'bio', 'followers_count', 'following_count', 'created_at'],
+            indexes: ['username', 'email', 'followers_count'],
+          },
+          {
+            name: 'posts',
+            fields: ['id', 'user_id', 'caption', 'media_urls', 'likes_count', 'comments_count', 'created_at'],
+            indexes: ['user_id', 'created_at', 'likes_count'],
+          },
+          {
+            name: 'stories',
+            fields: ['id', 'user_id', 'media_url', 'expires_at', 'created_at'],
+            indexes: ['user_id', 'expires_at', 'created_at'],
+          },
+          {
+            name: 'user_relationships',
+            fields: ['id', 'follower_id', 'following_id', 'created_at'],
+            indexes: ['follower_id', 'following_id'],
+          },
+        ],
+      },
+      optimization: {
+        caching: [
+          'User feeds in Redis: TTL 5 minutes',
+          'Popular posts in CDN: TTL based on engagement',
+          'User relationships in cache: TTL 1 hour',
+        ],
+        scaling: [
+          'Horizontal scaling with load balancers',
+          'Database sharding by user_id',
+          'CDN for media file delivery',
+          'Read replicas for feed queries',
+        ],
+      },
+      security: [
+        'User authentication and verification',
+        'Content moderation and filtering',
+        'Rate limiting for uploads',
+        'Secure media file storage',
+        'Privacy controls for user content',
+      ],
+    },
+    'payment-system': {
+      title: 'Payment System',
+      icon: '💳',
+      description: 'Design a secure payment processing system with multiple payment methods, fraud detection, and compliance.',
+      difficulty: 'Intermediate',
+      category: 'Financial',
+      scale: 'Very High',
+      complexity: 'High',
+      requirements: {
+        functional: [
+          'Payment Processing: Credit cards, digital wallets, bank transfers',
+          'Multiple Gateways: Support various payment providers',
+          'Transaction Management: Payment tracking and history',
+          'Refund Processing: Automated and manual refunds',
+          'Subscription Billing: Recurring payment handling',
+          'Fraud Detection: Real-time risk assessment',
+          'Compliance: PCI DSS, GDPR, regional regulations',
+          'Reporting: Transaction analytics and reconciliation',
+        ],
+        nonFunctional: [
+          'Scale: Handle 10M+ transactions per day',
+          'Performance: < 500ms payment processing',
+          'Availability: 99.99% uptime',
+          'Security: PCI DSS Level 1 compliance',
+          'Reliability: 99.9% transaction success rate',
+        ],
+      },
+      scaleEstimation: {
+        transactions: '10M+ daily transactions',
+        users: '100M+ registered users',
+        merchants: '1M+ merchant accounts',
+        volume: '$1B+ daily transaction volume',
+        storage: '100TB+ transaction data',
+      },
+      architecture: {
+        components: [
+          'Payment Gateway Service',
+          'Transaction Service',
+          'Fraud Detection Service',
+          'Compliance Service',
+          'Settlement Service',
+          'Risk Management Service',
+          'Reporting Service',
+          'Notification Service',
+        ],
+        diagram: `
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│ E-commerce  │    │ Mobile App  │    │ POS System  │
+└─────┬───────┘    └─────┬───────┘    └─────┬───────┘
+      │                  │                  │
+      └──────────────────┼──────────────────┘
+                         │
+              ┌───────────▼───────────┐
+              │   API Gateway        │
+              └───────────┬───────────┘
+                         │
+          ┌──────────────┼──────────────┐
+          │              │              │
+┌─────────▼─────────┐ ┌─▼─────────┐ ┌─▼─────────┐
+│ Payment Gateway   │ │Fraud      │ │Transaction│
+│ Service           │ │Detection  │ │Service    │
+└───────────────────┘ └───────────┘ └───────────┘
+                         │
+              ┌───────────▼───────────┐
+              │   External Payment    │
+              │      Providers        │
+              └───────────────────────┘
+        `,
+      },
+      database: {
+        tables: [
+          {
+            name: 'transactions',
+            fields: ['id', 'user_id', 'merchant_id', 'amount', 'currency', 'status', 'payment_method', 'created_at'],
+            indexes: ['user_id', 'merchant_id', 'status', 'created_at'],
+          },
+          {
+            name: 'payment_methods',
+            fields: ['id', 'user_id', 'type', 'token', 'last_four', 'expiry_date', 'is_default'],
+            indexes: ['user_id', 'type', 'is_default'],
+          },
+          {
+            name: 'fraud_attempts',
+            fields: ['id', 'transaction_id', 'risk_score', 'fraud_type', 'blocked', 'created_at'],
+            indexes: ['transaction_id', 'risk_score', 'blocked'],
+          },
+        ],
+      },
+      optimization: {
+        caching: [
+          'User payment methods in Redis: TTL 1 hour',
+          'Fraud risk scores in cache: TTL 5 minutes',
+          'Transaction status in cache: TTL 30 minutes',
+        ],
+        scaling: [
+          'Microservices architecture',
+          'Database sharding by merchant_id',
+          'Horizontal scaling of payment gateways',
+          'Geographic distribution for compliance',
+        ],
+      },
+      security: [
+        'PCI DSS Level 1 compliance',
+        'End-to-end encryption',
+        'Tokenization of sensitive data',
+        'Multi-factor authentication',
+        'Real-time fraud monitoring',
+        'Secure key management',
+      ],
+    },
   };
 
   const problem = problemData[problemId];
