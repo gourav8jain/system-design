@@ -9,29 +9,29 @@ body {
   font-family: 'Roboto', 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #667eea 100%);
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   min-height: 100vh;
   color: #2c3e50;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
+  background: #e1e8ed;
+  border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 6px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  border-radius: 8px;
+  border: 2px solid #e1e8ed;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+  background: linear-gradient(135deg, #2980b9 0%, #1f5f8b 100%);
 }
 
 /* Smooth Transitions */
@@ -41,7 +41,7 @@ body {
 
 /* Custom Focus Styles */
 *:focus {
-  outline: 3px solid #ff6b35;
+  outline: 3px solid #3498db;
   outline-offset: 3px;
 }
 
@@ -49,18 +49,17 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.3;
-  color: #1e3c72;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #2c3e50;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 /* Improved Card Styling */
 .MuiCard-root {
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(15px);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 20px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #ffffff;
+  border: 2px solid #e1e8ed;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   position: relative;
 }
@@ -71,10 +70,10 @@ h1, h2, h3, h4, h5, h6 {
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #ff6b35, #f7931e, #ff6b35);
+  height: 5px;
+  background: linear-gradient(90deg, #3498db, #2ecc71, #f39c12, #e74c3c);
   background-size: 200% 100%;
-  animation: gradient-shift 3s ease-in-out infinite;
+  animation: gradient-shift 4s ease-in-out infinite;
 }
 
 @keyframes gradient-shift {
@@ -83,19 +82,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .MuiCard-root:hover {
-  transform: translateY(-12px) scale(1.02);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
-  border-color: #ff6b35;
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border-color: #3498db;
 }
 
 /* Enhanced Button Styling */
 .MuiButton-root {
-  border-radius: 15px;
-  font-weight: 700;
+  border-radius: 12px;
+  font-weight: 600;
   text-transform: none;
-  padding: 14px 28px;
+  padding: 12px 24px;
   font-size: 1rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
 }
@@ -116,172 +115,167 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .MuiButton-contained {
-  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
   color: white;
   border: none;
 }
 
 .MuiButton-contained:hover {
-  background: linear-gradient(135deg, #e55a2b 0%, #e0851a 100%);
-  box-shadow: 0 10px 30px rgba(255, 107, 53, 0.6);
-  transform: translateY(-3px);
+  background: linear-gradient(135deg, #2980b9 0%, #1f5f8b 100%);
+  box-shadow: 0 8px 25px rgba(52, 152, 219, 0.6);
+  transform: translateY(-2px);
 }
 
 .MuiButton-outlined {
-  border: 3px solid #ff6b35;
-  color: #ff6b35;
-  background: rgba(255, 107, 53, 0.05);
+  border: 2px solid #3498db;
+  color: #3498db;
+  background: rgba(52, 152, 219, 0.05);
 }
 
 .MuiButton-outlined:hover {
-  background: rgba(255, 107, 53, 0.15);
-  border-color: #e55a2b;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+  background: rgba(52, 152, 219, 0.1);
+  border-color: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(52, 152, 219, 0.2);
 }
 
 /* Enhanced Chip Styling */
 .MuiChip-root {
-  border-radius: 25px;
+  border-radius: 20px;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 2px solid;
+  border: 1px solid;
 }
 
 .MuiChip-outlined {
-  border-color: #667eea;
-  color: #667eea;
-  background: rgba(102, 126, 234, 0.1);
+  border-color: #3498db;
+  color: #3498db;
+  background: rgba(52, 152, 219, 0.1);
 }
 
 .MuiChip-outlined:hover {
-  background: rgba(102, 126, 234, 0.2);
-  border-color: #5a6fd8;
-  transform: scale(1.08);
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  background: rgba(52, 152, 219, 0.2);
+  border-color: #2980b9;
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
 }
 
 .MuiChip-filled {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
   color: white;
   border: none;
 }
 
 .MuiChip-filled:hover {
-  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
-  transform: scale(1.08);
+  background: linear-gradient(135deg, #2980b9 0%, #1f5f8b 100%);
+  transform: scale(1.05);
 }
 
 /* Enhanced Accordion Styling */
 .MuiAccordion-root {
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(15px);
-  border-radius: 16px;
-  margin-bottom: 20px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  border: 2px solid #e1e8ed;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   overflow: hidden;
 }
 
 .MuiAccordion-root:hover {
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-  border-color: rgba(255, 107, 53, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: rgba(52, 152, 219, 0.3);
 }
 
 .MuiAccordionSummary-root {
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  background: linear-gradient(135deg, rgba(52, 152, 219, 0.05) 0%, rgba(46, 204, 113, 0.05) 100%);
 }
 
 /* Enhanced Tab Styling */
 .MuiTabs-root {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(15px);
-  border-radius: 16px;
-  padding: 12px;
-  margin-bottom: 30px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 8px;
+  margin-bottom: 24px;
+  border: 2px solid #e1e8ed;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
 .MuiTab-root {
-  border-radius: 12px;
-  margin: 0 6px;
-  font-weight: 700;
-  font-size: 1rem;
+  border-radius: 10px;
+  margin: 0 4px;
+  font-weight: 600;
+  font-size: 0.95rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  min-height: 48px;
+  min-height: 44px;
+  color: #7f8c8d;
 }
 
 .MuiTab-root.Mui-selected {
-  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
   color: white;
-  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
 }
 
 .MuiTab-root:hover:not(.Mui-selected) {
-  background: rgba(255, 107, 53, 0.1);
-  color: #ff6b35;
+  background: rgba(52, 152, 219, 0.1);
+  color: #3498db;
 }
 
 /* Enhanced Paper Styling */
 .MuiPaper-root {
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(15px);
-  border-radius: 20px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  border-radius: 16px;
+  border: 2px solid #e1e8ed;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
 /* Enhanced List Styling */
 .MuiList-root {
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(15px);
-  border-radius: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: #ffffff;
+  border-radius: 12px;
+  border: 2px solid #e1e8ed;
   overflow: hidden;
 }
 
 .MuiListItem-root {
-  border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+  border-bottom: 1px solid #ecf0f1;
   transition: all 0.3s ease;
 }
 
 .MuiListItem-root:hover {
-  background: rgba(102, 126, 234, 0.05);
-  transform: translateX(8px);
+  background: rgba(52, 152, 219, 0.05);
+  transform: translateX(4px);
 }
 
 /* Enhanced Navigation Styling */
 .MuiAppBar-root {
-  background: rgba(255, 255, 255, 0.98) !important;
-  backdrop-filter: blur(25px);
-  border-bottom: 3px solid rgba(255, 107, 53, 0.3);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  background: #ffffff !important;
+  border-bottom: 3px solid #3498db;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .MuiToolbar-root {
-  min-height: 80px !important;
+  min-height: 70px !important;
 }
 
 .MuiTypography-root.MuiTypography-h6 {
-  color: #1e3c72;
+  color: #2c3e50;
   font-weight: 700;
 }
 
 /* Enhanced Drawer Styling */
 .MuiDrawer-paper {
-  background: rgba(255, 255, 255, 0.98) !important;
-  backdrop-filter: blur(25px);
-  border-right: 3px solid rgba(255, 107, 53, 0.3);
-  width: 300px;
-  box-shadow: 8px 0 30px rgba(0, 0, 0, 0.15);
+  background: #ffffff !important;
+  border-right: 3px solid #3498db;
+  width: 280px;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
 }
 
 /* Enhanced Container Styling */
 .MuiContainer-root {
-  padding: 32px 20px;
+  padding: 24px 16px;
 }
 
 /* Consistent Card Heights */
@@ -295,12 +289,12 @@ h1, h2, h3, h4, h5, h6 {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  padding: 24px;
+  padding: 20px;
 }
 
 .consistent-card .MuiCardActions-root {
   margin-top: auto;
-  padding: 0 24px 24px;
+  padding: 0 20px 20px;
 }
 
 /* Enhanced Grid Spacing */
@@ -309,37 +303,41 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .MuiGrid-item {
-  padding: 20px !important;
+  padding: 16px !important;
 }
 
 /* Beautiful Gradient Backgrounds */
 .gradient-bg-primary {
-  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
 }
 
 .gradient-bg-secondary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
 }
 
 .gradient-bg-success {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
 }
 
 .gradient-bg-warning {
-  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
 }
 
 .gradient-bg-info {
-  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
 }
 
-.gradient-bg-dark {
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+.gradient-bg-danger {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+}
+
+.gradient-bg-light {
+  background: linear-gradient(135deg, #ecf0f1 0%, #bdc3c7 100%);
 }
 
 /* Enhanced Text Colors */
 .text-gradient-primary {
-  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -347,15 +345,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .text-gradient-secondary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-weight: 700;
 }
 
-.text-gradient-dark {
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+.text-gradient-warning {
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+.text-gradient-danger {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -364,62 +370,62 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Enhanced Shadows */
 .shadow-soft {
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .shadow-medium {
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
 .shadow-strong {
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
 }
 
 .shadow-glow {
-  box-shadow: 0 0 30px rgba(255, 107, 53, 0.3);
+  box-shadow: 0 0 25px rgba(52, 152, 219, 0.3);
 }
 
 /* Enhanced Borders */
 .border-gradient {
   border: 3px solid;
-  border-image: linear-gradient(135deg, #ff6b35, #f7931e, #ff6b35) 1;
+  border-image: linear-gradient(135deg, #3498db, #2ecc71, #f39c12, #e74c3c) 1;
 }
 
 .border-glow {
-  border: 2px solid #ff6b35;
-  box-shadow: 0 0 20px rgba(255, 107, 53, 0.4);
+  border: 2px solid #3498db;
+  box-shadow: 0 0 15px rgba(52, 152, 219, 0.3);
 }
 
 /* Enhanced Hover Effects */
 .hover-lift {
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hover-lift:hover {
-  transform: translateY(-12px);
+  transform: translateY(-8px);
 }
 
 .hover-scale {
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hover-scale:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .hover-glow:hover {
-  box-shadow: 0 0 30px rgba(255, 107, 53, 0.4);
+  box-shadow: 0 0 25px rgba(52, 152, 219, 0.4);
 }
 
 /* Enhanced Focus States */
 .focus-ring:focus {
   outline: none;
-  box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.4);
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
 }
 
 /* Enhanced Loading States */
 .loading-shimmer {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
@@ -445,7 +451,7 @@ h1, h2, h3, h4, h5, h6 {
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: linear-gradient(45deg, #ff6b35, #f7931e, #667eea, #764ba2, #ff6b35);
+  background: linear-gradient(45deg, #3498db, #2ecc71, #f39c12, #e74c3c, #3498db);
   background-size: 400% 400%;
   border-radius: inherit;
   z-index: -1;
@@ -469,6 +475,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 800;
   line-height: 1.2;
   margin-bottom: 1.5rem;
+  color: #2c3e50;
 }
 
 .section-title {
@@ -476,6 +483,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.3;
   margin-bottom: 1rem;
+  color: #2c3e50;
 }
 
 .card-title {
@@ -483,27 +491,28 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   line-height: 1.4;
   margin-bottom: 0.75rem;
+  color: #2c3e50;
 }
 
 /* Enhanced Spacing */
 .section-spacing {
-  padding: 4rem 0;
+  padding: 3rem 0;
 }
 
 .card-spacing {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 /* Enhanced Responsiveness */
 @media (max-width: 600px) {
   .MuiCard-root {
-    border-radius: 16px;
+    border-radius: 12px;
     margin: 0 8px;
   }
   
   .MuiButton-root {
-    padding: 12px 24px;
-    font-size: 0.95rem;
+    padding: 10px 20px;
+    font-size: 0.9rem;
   }
   
   .MuiChip-root {
@@ -511,7 +520,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   
   .MuiContainer-root {
-    padding: 20px 16px;
+    padding: 16px 12px;
   }
   
   .section-spacing {
@@ -525,6 +534,87 @@ h1, h2, h3, h4, h5, h6 {
   }
   
   .MuiGrid-item {
-    padding: 24px !important;
+    padding: 20px !important;
   }
+}
+
+/* Enhanced Search Bar */
+.MuiTextField-root .MuiOutlinedInput-root {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 2px solid #e1e8ed;
+  transition: all 0.3s ease;
+}
+
+.MuiTextField-root .MuiOutlinedInput-root:hover {
+  border-color: #bdc3c7;
+}
+
+.MuiTextField-root .MuiOutlinedInput-root.Mui-focused {
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+/* Enhanced Problem Cards */
+.problem-card {
+  background: #ffffff;
+  border: 2px solid #e1e8ed;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.problem-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  border-color: #3498db;
+}
+
+.problem-card .MuiCardContent-root {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.problem-card .MuiCardActions-root {
+  padding: 0 20px 20px;
+  margin-top: auto;
+}
+
+/* Enhanced Difficulty Indicators */
+.difficulty-basic {
+  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+  color: white;
+}
+
+.difficulty-intermediate {
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+  color: white;
+}
+
+.difficulty-advanced {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  color: white;
+}
+
+/* Enhanced Category Tags */
+.category-web {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: white;
+}
+
+.category-mobile {
+  background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+  color: white;
+}
+
+.category-data {
+  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+  color: white;
+}
+
+.category-ai {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  color: white;
 }
