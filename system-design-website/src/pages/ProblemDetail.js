@@ -39,6 +39,178 @@ const ProblemDetail = () => {
 
   // Mock data for different problems - in a real app, this would come from an API
   const problemData = {
+    'url-shortener': {
+      title: 'URL Shortener',
+      icon: '🔗',
+      description: 'Design a URL shortening service like bit.ly with analytics and custom domains.',
+      difficulty: 'Basic',
+      category: 'Web Services',
+      scale: 'Medium',
+      complexity: 'Low',
+      requirements: {
+        functional: [
+          'URL Generation: Create short URLs from long URLs',
+          'URL Redirection: Redirect short URLs to original URLs',
+          'Analytics: Track click counts and user data',
+          'Custom Domains: Support custom domain aliases',
+          'Rate Limiting: Prevent abuse and spam',
+        ],
+        nonFunctional: [
+          'Scale: Handle 100M+ URLs per day',
+          'Performance: < 100ms redirect time',
+          'Availability: 99.9% uptime',
+          'Security: Prevent URL hijacking',
+        ],
+      },
+      scaleEstimation: {
+        users: '10M Daily Active Users',
+        urls: '100M URLs per day',
+        storage: '50GB URLs + 10GB analytics per day',
+        requests: '1B redirects per day',
+      },
+      architecture: {
+        components: [
+          'Load Balancer',
+          'URL Service',
+          'Analytics Service',
+          'Cache (Redis)',
+          'Database (PostgreSQL)',
+          'CDN',
+        ],
+        diagram: `
+┌─────────────┐    ┌─────────────┐
+│ Web Client  │    │ Mobile App  │
+└─────┬───────┘    └─────┬───────┘
+      │                  │
+      └──────────────────┼──────────────────┘
+                         │
+              ┌───────────▼───────────┐
+              │   Load Balancer      │
+              └───────────┬───────────┘
+                         │
+              ┌───────────▼───────────┐
+              │    URL Service       │
+              └───────────┬───────────┘
+                         │
+              ┌───────────▼───────────┐
+              │   Cache (Redis)      │
+              └───────────┬───────────┘
+                         │
+              ┌───────────▼───────────┐
+              │ Database (PostgreSQL)│
+              └───────────────────────┘
+        `,
+      },
+      database: {
+        tables: [
+          {
+            name: 'urls',
+            fields: ['id', 'short_code', 'original_url', 'user_id', 'created_at', 'expires_at'],
+            indexes: ['short_code', 'user_id', 'created_at'],
+          },
+          {
+            name: 'analytics',
+            fields: ['id', 'short_code', 'ip_address', 'user_agent', 'referrer', 'clicked_at'],
+            indexes: ['short_code', 'clicked_at'],
+          },
+        ],
+      },
+      optimization: {
+        caching: [
+          'URL mappings in Redis: TTL 1 hour',
+          'Analytics data in cache: TTL 5 minutes',
+        ],
+        scaling: [
+          'Horizontal scaling with load balancers',
+          'Database read replicas',
+          'CDN for static assets',
+        ],
+      },
+      security: [
+        'Rate limiting for URL creation',
+        'URL validation and sanitization',
+        'User authentication for premium features',
+        'Malicious URL detection',
+      ],
+    },
+    'rate-limiter': {
+      title: 'Rate Limiter',
+      icon: '⏱️',
+      description: 'Implement distributed rate limiting with multiple algorithms and strategies.',
+      difficulty: 'Basic',
+      category: 'Infrastructure',
+      scale: 'High',
+      complexity: 'Medium',
+      requirements: {
+        functional: [
+          'Rate Limiting: Limit requests per user/IP',
+          'Multiple Algorithms: Token Bucket, Leaky Bucket, Fixed Window',
+          'Distributed Support: Work across multiple servers',
+          'Configuration: Adjustable limits and time windows',
+          'Monitoring: Track rate limit violations',
+        ],
+        nonFunctional: [
+          'Scale: Handle 1M+ requests per second',
+          'Performance: < 10ms overhead per request',
+          'Accuracy: Precise rate limiting',
+          'Reliability: 99.99% uptime',
+        ],
+      },
+      scaleEstimation: {
+        requests: '1M requests per second',
+        users: '100M unique users',
+        storage: '10GB rate limit data',
+        latency: '< 10ms overhead',
+      },
+      architecture: {
+        components: [
+          'Rate Limiter Service',
+          'Redis Cluster',
+          'Configuration Service',
+          'Monitoring Service',
+          'Load Balancer',
+        ],
+        diagram: `
+┌─────────────┐    ┌─────────────┐
+│ Application │    │ API Gateway │
+└─────┬───────┘    └─────┬───────┘
+      │                  │
+      └──────────────────┼──────────────────┘
+                         │
+              ┌───────────▼───────────┐
+              │ Rate Limiter Service │
+              └───────────┬───────────┘
+                         │
+              ┌───────────▼───────────┐
+              │   Redis Cluster      │
+              └───────────────────────┘
+        `,
+      },
+      database: {
+        tables: [
+          {
+            name: 'rate_limits',
+            fields: ['id', 'user_id', 'algorithm', 'limit', 'window', 'current_count', 'reset_time'],
+            indexes: ['user_id', 'reset_time'],
+          },
+        ],
+      },
+      optimization: {
+        caching: [
+          'Rate limit counters in Redis: TTL based on window',
+          'User limits in memory cache: TTL 1 minute',
+        ],
+        scaling: [
+          'Redis cluster for distributed rate limiting',
+          'Horizontal scaling of rate limiter services',
+        ],
+      },
+      security: [
+        'Prevent rate limit bypass',
+        'Secure configuration management',
+        'Audit logging for violations',
+      ],
+    },
     'twitter-clone': {
       title: 'Twitter Clone',
       icon: '🐦',
@@ -266,6 +438,191 @@ const ProblemDetail = () => {
         'Secure WebSocket connections',
         'User authentication',
         'Rate limiting',
+      ],
+    },
+    'notification-system': {
+      title: 'Notification System',
+      icon: '🔔',
+      description: 'Design a multi-channel notification delivery system with personalization and analytics.',
+      difficulty: 'Intermediate',
+      category: 'Communication',
+      scale: 'Very High',
+      complexity: 'High',
+      requirements: {
+        functional: [
+          'Multi-channel Delivery: Email, SMS, Push, In-app',
+          'Personalization: User preferences and targeting',
+          'Templates: Dynamic content and localization',
+          'Scheduling: Time-based and event-triggered',
+          'Analytics: Delivery tracking and engagement metrics',
+        ],
+        nonFunctional: [
+          'Scale: Handle 1B+ notifications per day',
+          'Performance: < 100ms delivery time',
+          'Reliability: 99.99% delivery success',
+          'Latency: Real-time notification delivery',
+        ],
+      },
+      scaleEstimation: {
+        notifications: '1B notifications per day',
+        users: '500M users',
+        channels: '4 channels (Email, SMS, Push, In-app)',
+        storage: '100GB notifications + 50GB analytics per day',
+      },
+      architecture: {
+        components: [
+          'Notification Service',
+          'Template Engine',
+          'Channel Services (Email, SMS, Push)',
+          'Queue System (Kafka)',
+          'Analytics Service',
+          'User Preference Service',
+        ],
+        diagram: `
+┌─────────────┐    ┌─────────────┐
+│ Application │    │ User Action │
+└─────┬───────┘    └─────┬───────┘
+      │                  │
+      └──────────────────┼──────────────────┘
+                         │
+              ┌───────────▼───────────┐
+              │ Notification Service  │
+              └───────────┬───────────┘
+                         │
+              ┌───────────▼───────────┐
+              │   Queue (Kafka)      │
+              └───────────┬───────────┘
+                         │
+          ┌──────────────┼──────────────┐
+          │              │              │
+┌─────────▼─────────┐ ┌─▼─────────┐ ┌─▼─────────┐
+│  Email Service    │ │SMS Service│ │Push Service│
+└───────────────────┘ └───────────┘ └───────────┘
+        `,
+      },
+      database: {
+        tables: [
+          {
+            name: 'notifications',
+            fields: ['id', 'user_id', 'type', 'content', 'channel', 'status', 'created_at'],
+            indexes: ['user_id', 'type', 'status', 'created_at'],
+          },
+          {
+            name: 'user_preferences',
+            fields: ['user_id', 'channel', 'enabled', 'frequency', 'updated_at'],
+            indexes: ['user_id', 'channel'],
+          },
+        ],
+      },
+      optimization: {
+        caching: [
+          'User preferences in Redis: TTL 1 hour',
+          'Template cache: TTL 30 minutes',
+        ],
+        scaling: [
+          'Horizontal scaling of channel services',
+          'Queue partitioning by channel type',
+          'Database sharding by user_id',
+        ],
+      },
+      security: [
+        'User consent management',
+        'Rate limiting per user',
+        'Content sanitization',
+        'Secure channel authentication',
+      ],
+    },
+    'ecommerce-platform': {
+      title: 'E-commerce Platform',
+      icon: '🛒',
+      description: 'Design an Amazon-like platform with inventory management, recommendations, and logistics.',
+      difficulty: 'Advanced',
+      category: 'E-commerce',
+      scale: 'Very High',
+      complexity: 'Very High',
+      requirements: {
+        functional: [
+          'Product Catalog: Search, browse, and filter',
+          'Inventory Management: Stock tracking and updates',
+          'Shopping Cart: Add, remove, and modify items',
+          'Order Processing: Checkout and payment',
+          'Recommendations: Personalized product suggestions',
+          'Logistics: Shipping and delivery tracking',
+        ],
+        nonFunctional: [
+          'Scale: Handle 100M+ products and 10M+ orders per day',
+          'Performance: < 200ms page load time',
+          'Availability: 99.99% uptime',
+          'Consistency: Strong consistency for inventory',
+        ],
+      },
+      scaleEstimation: {
+        products: '100M+ products',
+        orders: '10M orders per day',
+        users: '50M daily active users',
+        storage: '1TB products + 100GB orders per day',
+      },
+      architecture: {
+        components: [
+          'Product Service',
+          'Inventory Service',
+          'Order Service',
+          'Payment Service',
+          'Recommendation Engine',
+          'Search Service (Elasticsearch)',
+          'Logistics Service',
+        ],
+        diagram: `
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│ Web Client  │    │ Mobile App  │    │ Admin Panel │
+└─────┬───────┘    └─────┬───────┘    └─────┬───────┘
+      │                  │                  │
+      └──────────────────┼──────────────────┘
+                         │
+              ┌───────────▼───────────┐
+              │   API Gateway        │
+              └───────────┬───────────┘
+                         │
+          ┌──────────────┼──────────────┐
+          │              │              │
+┌─────────▼─────────┐ ┌─▼─────────┐ ┌─▼─────────┐
+│ Product Service   │ │Inventory  │ │Order      │
+└───────────────────┘ │Service    │ │Service    │
+                      └───────────┘ └───────────┘
+        `,
+      },
+      database: {
+        tables: [
+          {
+            name: 'products',
+            fields: ['id', 'name', 'description', 'price', 'category', 'inventory_count'],
+            indexes: ['category', 'price', 'name'],
+          },
+          {
+            name: 'orders',
+            fields: ['id', 'user_id', 'total_amount', 'status', 'created_at'],
+            indexes: ['user_id', 'status', 'created_at'],
+          },
+        ],
+      },
+      optimization: {
+        caching: [
+          'Product catalog in Redis: TTL 1 hour',
+          'User session data: TTL 30 minutes',
+          'Search results: TTL 5 minutes',
+        ],
+        scaling: [
+          'Microservices architecture',
+          'Database sharding by category',
+          'CDN for product images',
+          'Read replicas for search queries',
+        ],
+      },
+      security: [
+        'Payment data encryption',
+        'User authentication and authorization',
+        'Fraud detection systems',
+        'Secure inventory management',
       ],
     },
   };
