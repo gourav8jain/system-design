@@ -613,6 +613,558 @@ const ProblemDetail = () => {
         'Secure inventory management',
       ],
     },
+    'video-streaming': {
+      title: 'Video Streaming Platform',
+      icon: '🎥',
+      description: 'Design a YouTube-like platform with adaptive bitrate streaming, content delivery, and recommendations.',
+      difficulty: 'Advanced',
+      category: 'Media',
+      scale: 'Extremely High',
+      complexity: 'Very High',
+      requirements: {
+        functional: [
+          'Video Upload: Support multiple formats and resolutions',
+          'Adaptive Streaming: HLS/DASH with quality switching',
+          'Content Delivery: Global CDN for fast streaming',
+          'User Management: Profiles, subscriptions, playlists',
+          'Recommendations: Personalized video suggestions',
+          'Analytics: View counts, engagement metrics',
+          'Content Moderation: Filter inappropriate content',
+        ],
+        nonFunctional: [
+          'Scale: Handle 1B+ videos and 100M+ daily views',
+          'Performance: < 2s video start time',
+          'Availability: 99.99% uptime',
+          'Bandwidth: Optimize for different network conditions',
+          'Storage: Efficient video encoding and storage',
+        ],
+      },
+      scaleEstimation: {
+        videos: '1B+ videos',
+        dailyViews: '100M+ daily views',
+        users: '500M+ registered users',
+        storage: '10PB+ video storage',
+        bandwidth: '100TB+ daily bandwidth',
+      },
+      architecture: {
+        components: [
+          'Video Upload Service',
+          'Transcoding Service (FFmpeg)',
+          'Content Delivery Network (CDN)',
+          'Video Streaming Service',
+          'User Management Service',
+          'Recommendation Engine',
+          'Analytics Service',
+          'Content Moderation Service',
+        ],
+        diagram: `
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│ Web Client  │    │ Mobile App  │    │ Smart TV    │
+└─────┬───────┘    └─────┬───────┘    └─────┬───────┘
+      │                  │                  │
+      └──────────────────┼──────────────────┘
+                         │
+              ┌───────────▼───────────┐
+              │   Load Balancer      │
+              └───────────┬───────────┘
+                         │
+          ┌──────────────┼──────────────┐
+          │              │              │
+┌─────────▼─────────┐ ┌─▼─────────┐ ┌─▼─────────┐
+│ Video Upload      │ │Transcoding│ │Streaming  │
+│ Service           │ │Service    │ │Service    │
+└───────────────────┘ └───────────┘ └───────────┘
+                         │
+              ┌───────────▼───────────┐
+              │   Global CDN         │
+              └───────────────────────┘
+        `,
+      },
+      database: {
+        tables: [
+          {
+            name: 'videos',
+            fields: ['id', 'title', 'description', 'user_id', 'duration', 'views', 'created_at'],
+            indexes: ['user_id', 'views', 'created_at', 'title'],
+          },
+          {
+            name: 'video_qualities',
+            fields: ['id', 'video_id', 'quality', 'bitrate', 'resolution', 'url'],
+            indexes: ['video_id', 'quality'],
+          },
+          {
+            name: 'user_interactions',
+            fields: ['id', 'user_id', 'video_id', 'action', 'timestamp'],
+            indexes: ['user_id', 'video_id', 'action'],
+          },
+        ],
+      },
+      optimization: {
+        caching: [
+          'Video chunks in CDN: TTL based on popularity',
+          'User preferences in Redis: TTL 1 hour',
+          'Recommendations in cache: TTL 30 minutes',
+        ],
+        scaling: [
+          'Multi-region CDN deployment',
+          'Horizontal scaling of streaming services',
+          'Database sharding by user_id',
+          'Video transcoding in parallel',
+        ],
+      },
+      security: [
+        'Content encryption (DRM)',
+        'User authentication and authorization',
+        'Content moderation and filtering',
+        'Rate limiting for uploads',
+        'Secure video delivery',
+      ],
+    },
+    'messaging-platform': {
+      title: 'Messaging Platform',
+      icon: '💬',
+      description: 'Design a WhatsApp-like messaging platform with real-time communication, group chats, and media sharing.',
+      difficulty: 'Advanced',
+      category: 'Communication',
+      scale: 'Extremely High',
+      complexity: 'Very High',
+      requirements: {
+        functional: [
+          'Real-time Messaging: Instant message delivery',
+          'Group Chats: Support multiple participants',
+          'Media Sharing: Images, videos, documents, voice notes',
+          'User Management: Profiles, contacts, status',
+          'Message Encryption: End-to-end encryption',
+          'Push Notifications: Offline message alerts',
+          'Message Search: Find specific conversations',
+          'File Storage: Media and document management',
+        ],
+        nonFunctional: [
+          'Scale: Handle 2B+ users and 100B+ messages per day',
+          'Performance: < 100ms message delivery',
+          'Availability: 99.99% uptime',
+          'Security: End-to-end encryption',
+          'Reliability: Message delivery guarantees',
+        ],
+      },
+      scaleEstimation: {
+        users: '2B+ daily active users',
+        messages: '100B+ messages per day',
+        mediaFiles: '50B+ media files shared daily',
+        storage: '100PB+ total storage',
+        bandwidth: '500TB+ daily bandwidth',
+      },
+      architecture: {
+        components: [
+          'Message Service',
+          'User Management Service',
+          'Media Service',
+          'Push Notification Service',
+          'WebSocket Gateway',
+          'Message Queue (Kafka)',
+          'File Storage (S3)',
+          'Encryption Service',
+        ],
+        diagram: `
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│ Web Client  │    │ Mobile App  │    │ Desktop App │
+└─────┬───────┘    └─────┬───────┘    └─────┬───────┘
+      │                  │                  │
+      └──────────────────┼──────────────────┘
+                         │
+              ┌───────────▼───────────┐
+              │   Load Balancer      │
+              └───────────┬───────────┘
+                         │
+              ┌───────────▼───────────┐
+              │ WebSocket Gateway    │
+              └───────────┬───────────┘
+                         │
+          ┌──────────────┼──────────────┐
+          │              │              │
+┌─────────▼─────────┐ ┌─▼─────────┐ ┌─▼─────────┐
+│ Message Service   │ │User Mgmt  │ │Media      │
+└───────────────────┘ │Service    │ │Service    │
+                      └───────────┘ └───────────┘
+                         │
+              ┌───────────▼───────────┐
+              │   Message Queue      │
+              │      (Kafka)         │
+              └───────────────────────┘
+        `,
+      },
+      database: {
+        tables: [
+          {
+            name: 'users',
+            fields: ['id', 'username', 'phone', 'status', 'last_seen', 'created_at'],
+            indexes: ['phone', 'username', 'last_seen'],
+          },
+          {
+            name: 'conversations',
+            fields: ['id', 'type', 'name', 'created_by', 'created_at'],
+            indexes: ['created_by', 'type'],
+          },
+          {
+            name: 'messages',
+            fields: ['id', 'conversation_id', 'sender_id', 'content', 'type', 'created_at'],
+            indexes: ['conversation_id', 'sender_id', 'created_at'],
+          },
+          {
+            name: 'media_files',
+            fields: ['id', 'message_id', 'file_url', 'file_type', 'file_size', 'created_at'],
+            indexes: ['message_id', 'file_type'],
+          },
+        ],
+      },
+      optimization: {
+        caching: [
+          'Recent messages in Redis: TTL 1 hour',
+          'User sessions in cache: TTL 30 minutes',
+          'Contact lists in memory: TTL 15 minutes',
+        ],
+        scaling: [
+          'Horizontal scaling with message queues',
+          'Database sharding by user_id',
+          'CDN for media file delivery',
+          'WebSocket connection pooling',
+        ],
+      },
+      security: [
+        'End-to-end encryption (Signal Protocol)',
+        'Secure WebSocket connections (WSS)',
+        'User authentication and authorization',
+        'Rate limiting for message sending',
+        'Media file scanning and validation',
+      ],
+    },
+    'ride-sharing': {
+      title: 'Ride-Sharing Platform',
+      icon: '🚗',
+      description: 'Design an Uber-like platform with real-time ride matching, payment processing, and driver management.',
+      difficulty: 'Advanced',
+      category: 'Transportation',
+      scale: 'Extremely High',
+      complexity: 'Very High',
+      requirements: {
+        functional: [
+          'User Registration: Rider and driver accounts',
+          'Ride Booking: Location-based ride requests',
+          'Driver Matching: Real-time driver assignment',
+          'Real-time Tracking: Live location updates',
+          'Payment Processing: Secure payment handling',
+          'Rating System: Driver and rider reviews',
+          'Route Optimization: Best path calculation',
+          'Emergency Support: Safety features and alerts',
+        ],
+        nonFunctional: [
+          'Scale: Handle 10M+ rides per day',
+          'Performance: < 5s ride matching time',
+          'Availability: 99.99% uptime',
+          'Real-time: < 10s location updates',
+          'Security: Secure payment and user data',
+        ],
+      },
+      scaleEstimation: {
+        users: '100M+ registered users',
+        rides: '10M+ rides per day',
+        drivers: '5M+ active drivers',
+        transactions: '15M+ daily transactions',
+        storage: '50PB+ total storage',
+      },
+      architecture: {
+        components: [
+          'User Management Service',
+          'Ride Matching Service',
+          'Location Service',
+          'Payment Service',
+          'Driver Management Service',
+          'Real-time Tracking Service',
+          'Route Optimization Service',
+          'Notification Service',
+        ],
+        diagram: `
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│ Rider App   │    │ Driver App  │    │ Web Portal  │
+└─────┬───────┘    └─────┬───────┘    └─────┬───────┘
+      │                  │                  │
+      └──────────────────┼──────────────────┘
+                         │
+              ┌───────────▼───────────┐
+              │   API Gateway        │
+              └───────────┬───────────┘
+                         │
+          ┌──────────────┼──────────────┐
+          │              │              │
+┌─────────▼─────────┐ ┌─▼─────────┐ ┌─▼─────────┐
+│ Ride Matching     │ │Location   │ │Payment    │
+│ Service           │ │Service    │ │Service    │
+└───────────────────┘ └───────────┘ └───────────┘
+                         │
+              ┌───────────▼───────────┐
+              │   Real-time Queue    │
+              │      (Kafka)         │
+              └───────────────────────┘
+        `,
+      },
+      database: {
+        tables: [
+          {
+            name: 'users',
+            fields: ['id', 'type', 'name', 'phone', 'email', 'rating', 'created_at'],
+            indexes: ['type', 'phone', 'email', 'rating'],
+          },
+          {
+            name: 'rides',
+            fields: ['id', 'rider_id', 'driver_id', 'status', 'pickup', 'destination', 'created_at'],
+            indexes: ['rider_id', 'driver_id', 'status', 'created_at'],
+          },
+          {
+            name: 'locations',
+            fields: ['id', 'user_id', 'latitude', 'longitude', 'timestamp'],
+            indexes: ['user_id', 'timestamp'],
+          },
+        ],
+      },
+      optimization: {
+        caching: [
+          'User locations in Redis: TTL 30 seconds',
+          'Driver availability in cache: TTL 1 minute',
+          'Route data in cache: TTL 5 minutes',
+        ],
+        scaling: [
+          'Microservices architecture',
+          'Geographic sharding by region',
+          'Real-time message queues',
+          'CDN for static assets',
+        ],
+      },
+      security: [
+        'User authentication and verification',
+        'Secure payment processing',
+        'Location data encryption',
+        'Driver background checks',
+        'Emergency response systems',
+      ],
+    },
+    'search-engine': {
+      title: 'Search Engine',
+      icon: '🔍',
+      description: 'Design a Google-like search engine with web crawling, indexing, and relevance ranking.',
+      difficulty: 'Advanced',
+      category: 'Information Retrieval',
+      scale: 'Extremely High',
+      complexity: 'Very High',
+      requirements: {
+        functional: [
+          'Web Crawling: Discover and index web pages',
+          'Content Indexing: Store and organize web content',
+          'Search Query Processing: Parse and understand queries',
+          'Relevance Ranking: Rank results by importance',
+          'Autocomplete: Suggest search terms',
+          'Spell Correction: Handle typos and mistakes',
+          'Personalization: User-specific results',
+          'Analytics: Search behavior tracking',
+        ],
+        nonFunctional: [
+          'Scale: Index 100B+ web pages',
+          'Performance: < 200ms search response',
+          'Availability: 99.99% uptime',
+          'Accuracy: High relevance ranking',
+          'Freshness: Regular content updates',
+        ],
+      },
+      scaleEstimation: {
+        webPages: '100B+ indexed pages',
+        searches: '5B+ daily searches',
+        users: '2B+ daily users',
+        storage: '1EB+ total storage',
+        bandwidth: '1PB+ daily bandwidth',
+      },
+      architecture: {
+        components: [
+          'Web Crawler Service',
+          'Indexing Service',
+          'Search Service',
+          'Ranking Algorithm',
+          'Query Processing Service',
+          'Analytics Service',
+          'Content Storage (BigTable)',
+          'Cache Layer (Redis)',
+        ],
+        diagram: `
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│ Web Client  │    │ Mobile App  │    │ API Client  │
+└─────┬───────┘    └─────┬───────┘    └─────┬───────┘
+      │                  │                  │
+      └──────────────────┼──────────────────┘
+                         │
+              ┌───────────▼───────────┐
+              │   Load Balancer      │
+              └───────────┬───────────┘
+                         │
+          ┌──────────────┼──────────────┐
+          │              │              │
+┌─────────▼─────────┐ ┌─▼─────────┐ ┌─▼─────────┐
+│ Search Service    │ │Indexing   │ │Web        │
+└───────────────────┘ │Service    │ │Crawler    │
+                      └───────────┘ └───────────┘
+                         │
+              ┌───────────▼───────────┐
+              │   Content Storage    │
+              │     (BigTable)       │
+              └───────────────────────┘
+        `,
+      },
+      database: {
+        tables: [
+          {
+            name: 'web_pages',
+            fields: ['id', 'url', 'title', 'content', 'rank_score', 'last_crawled'],
+            indexes: ['url', 'rank_score', 'last_crawled'],
+          },
+          {
+            name: 'search_queries',
+            fields: ['id', 'query', 'user_id', 'timestamp', 'results_clicked'],
+            indexes: ['query', 'user_id', 'timestamp'],
+          },
+          {
+            name: 'page_rankings',
+            fields: ['page_id', 'domain_authority', 'page_authority', 'backlinks'],
+            indexes: ['page_id', 'domain_authority'],
+          },
+        ],
+      },
+      optimization: {
+        caching: [
+          'Search results in Redis: TTL 1 hour',
+          'Query suggestions in cache: TTL 30 minutes',
+          'Page rankings in memory: TTL 24 hours',
+        ],
+        scaling: [
+          'Distributed crawling across regions',
+          'Sharded indexing by content type',
+          'CDN for static content delivery',
+          'Read replicas for search queries',
+        ],
+      },
+      security: [
+        'Content filtering and moderation',
+        'User privacy protection',
+        'Secure crawling protocols',
+        'Rate limiting for API access',
+        'Malicious content detection',
+      ],
+    },
+    'video-platform': {
+      title: 'Video Platform',
+      icon: '📺',
+      description: 'Design a Netflix-like video streaming platform with content management, recommendations, and adaptive streaming.',
+      difficulty: 'Advanced',
+      category: 'Media Streaming',
+      scale: 'Extremely High',
+      complexity: 'Very High',
+      requirements: {
+        functional: [
+          'Video Library: Content catalog management',
+          'Streaming Service: Adaptive bitrate streaming',
+          'User Management: Profiles, watchlists, history',
+          'Recommendations: Personalized content suggestions',
+          'Content Discovery: Search and browse functionality',
+          'Multi-device Support: TV, mobile, web, console',
+          'Offline Viewing: Download for offline use',
+          'Parental Controls: Age-appropriate content',
+        ],
+        nonFunctional: [
+          'Scale: Handle 200M+ subscribers',
+          'Performance: < 3s video start time',
+          'Availability: 99.99% uptime',
+          'Quality: 4K HDR streaming support',
+          'Bandwidth: Optimize for different connections',
+        ],
+      },
+      scaleEstimation: {
+        subscribers: '200M+ paid subscribers',
+        videos: '50K+ movies and shows',
+        dailyStreams: '500M+ daily streams',
+        storage: '500PB+ video storage',
+        bandwidth: '1PB+ daily bandwidth',
+      },
+      architecture: {
+        components: [
+          'Content Management Service',
+          'Video Streaming Service',
+          'User Management Service',
+          'Recommendation Engine',
+          'Content Delivery Network (CDN)',
+          'Analytics Service',
+          'Billing Service',
+          'Content Encoding Service',
+        ],
+        diagram: `
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│ Smart TV    │    │ Mobile App  │    │ Web Client  │
+└─────┬───────┘    └─────┬───────┘    └─────┬───────┘
+      │                  │                  │
+      └──────────────────┼──────────────────┘
+                         │
+              ┌───────────▼───────────┐
+              │   Load Balancer      │
+              └───────────┬───────────┘
+                         │
+          ┌──────────────┼──────────────┐
+          │              │              │
+┌─────────▼─────────┐ ┌─▼─────────┐ ┌─▼─────────┐
+│ Content Mgmt      │ │Streaming  │ │User Mgmt  │
+│ Service           │ │Service    │ │Service    │
+└───────────────────┘ └───────────┘ └───────────┘
+                         │
+              ┌───────────▼───────────┐
+              │   Global CDN         │
+              │   (Multi-region)     │
+              └───────────────────────┘
+        `,
+      },
+      database: {
+        tables: [
+          {
+            name: 'content',
+            fields: ['id', 'title', 'type', 'genre', 'duration', 'rating', 'release_date'],
+            indexes: ['type', 'genre', 'rating', 'release_date'],
+          },
+          {
+            name: 'user_watchlist',
+            fields: ['id', 'user_id', 'content_id', 'added_at', 'watched'],
+            indexes: ['user_id', 'content_id', 'added_at'],
+          },
+          {
+            name: 'streaming_sessions',
+            fields: ['id', 'user_id', 'content_id', 'start_time', 'duration', 'quality'],
+            indexes: ['user_id', 'content_id', 'start_time'],
+          },
+        ],
+      },
+      optimization: {
+        caching: [
+          'Popular content in CDN: TTL based on popularity',
+          'User preferences in Redis: TTL 1 hour',
+          'Recommendations in cache: TTL 30 minutes',
+        ],
+        scaling: [
+          'Multi-region CDN deployment',
+          'Content encoding in parallel',
+          'Database sharding by content type',
+          'Horizontal scaling of streaming services',
+        ],
+      },
+      security: [
+        'Content DRM protection',
+        'User authentication and authorization',
+        'Secure video delivery',
+        'Content licensing compliance',
+        'Geographic content restrictions',
+      ],
+    },
   };
 
   const problem = problemData[problemId];
