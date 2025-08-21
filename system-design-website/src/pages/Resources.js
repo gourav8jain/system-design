@@ -9,20 +9,11 @@ import {
   CardActions,
   Button,
   Chip,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
   Paper,
   useTheme,
   useMediaQuery,
 } from '@mui/material';
-import {
-  Book,
-  School,
-  CheckCircle,
-  OpenInNew,
-} from '@mui/icons-material';
+import { OpenInNew } from '@mui/icons-material';
 
 const Resources = () => {
   const theme = useTheme();
@@ -195,151 +186,221 @@ const Resources = () => {
   return (
     <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
       {/* Header */}
-      <Box sx={{ textAlign: 'center', py: { xs: 4, md: 6 } }}>
+      <Box sx={{ py: { xs: 4, md: 6 } }}>
         <Typography 
           variant={isMobile ? "h3" : "h2"} 
           component="h1" 
           gutterBottom 
-          sx={{ fontWeight: 'bold' }}
+          sx={{ 
+            textAlign: 'center', 
+            mb: { xs: 3, md: 4 },
+            fontWeight: 'bold',
+            fontSize: { xs: '1.75rem', sm: '2.125rem' }
+          }}
         >
-          📚 Learning Resources
+          Learning Resources
         </Typography>
         <Typography 
-          variant={isMobile ? "body1" : "h6"} 
+          variant="body1" 
           color="text.secondary" 
-          paragraph
+          sx={{ 
+            textAlign: 'center', 
+            mb: { xs: 4, md: 5 },
+            maxWidth: 800,
+            mx: 'auto',
+            px: { xs: 2, sm: 0 },
+            fontSize: { xs: '1rem', sm: '1.1rem' },
+            lineHeight: 1.6
+          }}
         >
-          Books, tools, and resources to accelerate your system design journey
+          Curated resources to accelerate your system design learning journey. From essential books to practical tools and platforms.
         </Typography>
       </Box>
 
-      {/* Books Section */}
-      <Box sx={{ mb: { xs: 4, md: 6 } }}>
+      {/* Essential Books */}
+      <Box sx={{ py: { xs: 4, md: 6 } }}>
         <Typography 
           variant={isMobile ? "h4" : "h3"} 
           component="h2" 
           gutterBottom 
-          sx={{ textAlign: 'center', mb: { xs: 3, md: 4 } }}
+          sx={{ 
+            textAlign: 'center', 
+            mb: { xs: 4, md: 6 },
+            fontWeight: 'bold',
+            fontSize: { xs: '1.5rem', sm: '1.75rem' }
+          }}
         >
-          📖 Essential Books
+          Essential Books
         </Typography>
-        <Grid container spacing={3}>
+        <Grid container spacing={{ xs: 3, md: 4 }}>
           {books.map((book, index) => (
-            <Grid item xs={12} md={6} key={index}>
-              <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                    <Book color="primary" sx={{ mr: 1 }} />
-                    <Typography variant="h6" component="h3">
-                      {book.title}
-                    </Typography>
-                  </Box>
-                  <Typography variant="body2" color="text.secondary" paragraph>
-                    by {book.author}
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Card sx={{ 
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+                '&:hover': {
+                  transform: 'translateY(-4px)',
+                  boxShadow: theme.shadows[8]
+                }
+              }}>
+                <CardContent sx={{ flexGrow: 1, p: { xs: 2, md: 3 } }}>
+                  <Typography 
+                    variant="h6" 
+                    component="h3" 
+                    gutterBottom
+                    sx={{ 
+                      fontWeight: 'bold',
+                      fontSize: { xs: '1rem', sm: '1.1rem' },
+                      mb: { xs: 1.5, md: 2 }
+                    }}
+                  >
+                    {book.title}
                   </Typography>
-                  <Typography variant="body2" paragraph>
+                  <Typography 
+                    variant="body2" 
+                    color="text.secondary"
+                    sx={{ 
+                      mb: { xs: 2, md: 3 },
+                      fontSize: { xs: '0.9rem', sm: '1rem' },
+                      lineHeight: 1.5
+                    }}
+                  >
                     {book.description}
                   </Typography>
-                  
-                  <Box sx={{ mb: 2 }}>
-                    <Box sx={{ display: 'flex', gap: 1, mb: 1, flexWrap: 'wrap' }}>
+                  <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: { xs: 2, md: 3 } }}>
+                    {book.tags.map((tag, tagIndex) => (
                       <Chip
-                        label={book.category}
-                        color="primary"
+                        key={tagIndex}
+                        label={tag}
                         size="small"
                         variant="outlined"
-                      />
-                      <Chip
-                        label={book.level}
-                        color={
-                          book.level === 'Beginner' ? 'success' :
-                          book.level === 'Intermediate' ? 'warning' : 'error'
-                        }
-                        size="small"
-                      />
-                      <Chip
-                        label={`⭐ ${book.rating}`}
-                        color="secondary"
-                        size="small"
-                      />
-                    </Box>
-                  </Box>
-
-                  <Typography variant="subtitle2" gutterBottom>
-                    Key Topics:
-                  </Typography>
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                    {book.topics.map((topic, idx) => (
-                      <Chip
-                        key={idx}
-                        label={topic}
-                        size="small"
-                        variant="outlined"
-                        sx={{ fontSize: '0.7rem' }}
+                        sx={{ 
+                          fontSize: { xs: '0.7rem', sm: '0.75rem' },
+                          height: { xs: 20, sm: 24 }
+                        }}
                       />
                     ))}
                   </Box>
                 </CardContent>
+                <CardActions sx={{ p: { xs: 2, md: 3 }, pt: 0 }}>
+                  <Button
+                    href={book.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    variant="outlined"
+                    startIcon={<OpenInNew />}
+                    fullWidth
+                    sx={{ 
+                      py: { xs: 1, sm: 1.5 },
+                      fontSize: { xs: '0.9rem', sm: '1rem' }
+                    }}
+                  >
+                    Learn More
+                  </Button>
+                </CardActions>
               </Card>
             </Grid>
           ))}
         </Grid>
       </Box>
 
-      {/* Tools Section */}
-      <Box sx={{ mb: { xs: 4, md: 6 } }}>
+      {/* Tools and Platforms */}
+      <Box sx={{ py: { xs: 4, md: 6 } }}>
         <Typography 
           variant={isMobile ? "h4" : "h3"} 
           component="h2" 
           gutterBottom 
-          sx={{ textAlign: 'center', mb: { xs: 3, md: 4 } }}
+          sx={{ 
+            textAlign: 'center', 
+            mb: { xs: 4, md: 6 },
+            fontWeight: 'bold',
+            fontSize: { xs: '1.5rem', sm: '1.75rem' }
+          }}
         >
-          🛠️ Essential Tools
+          Tools and Platforms
         </Typography>
-        <Grid container spacing={3}>
+        <Grid container spacing={{ xs: 3, md: 4 }}>
           {tools.map((tool, index) => (
-            <Grid item xs={12} md={6} key={index}>
-              <Card>
-                <CardContent>
-                  <Typography variant="h6" component="h3" gutterBottom>
-                    {tool.name}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" paragraph>
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Card sx={{ 
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+                '&:hover': {
+                  transform: 'translateY(-4px)',
+                  boxShadow: theme.shadows[8]
+                }
+              }}>
+                <CardContent sx={{ flexGrow: 1, p: { xs: 2, md: 3 } }}>
+                  <Box sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    mb: { xs: 2, md: 3 },
+                    color: 'primary.main'
+                  }}>
+                    <Box sx={{ 
+                      fontSize: { xs: 32, sm: 36, md: 40 },
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      mr: 2
+                    }}>
+                      {tool.icon}
+                    </Box>
+                    <Typography 
+                      variant="h6" 
+                      component="h3"
+                      sx={{ 
+                        fontWeight: 'bold',
+                        fontSize: { xs: '1rem', sm: '1.1rem' }
+                      }}
+                    >
+                      {tool.name}
+                    </Typography>
+                  </Box>
+                  <Typography 
+                    variant="body2" 
+                    color="text.secondary"
+                    sx={{ 
+                      mb: { xs: 2, md: 3 },
+                      fontSize: { xs: '0.9rem', sm: '1rem' },
+                      lineHeight: 1.5
+                    }}
+                  >
                     {tool.description}
                   </Typography>
-                  
-                  <Box sx={{ mb: 2 }}>
-                    <Chip
-                      label={tool.category}
-                      color="secondary"
-                      size="small"
-                      sx={{ mb: 1 }}
-                    />
-                  </Box>
-
-                  <Typography variant="subtitle2" gutterBottom>
-                    Features:
-                  </Typography>
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 2 }}>
-                    {tool.features.map((feature, idx) => (
+                  <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                    {tool.categories.map((category, catIndex) => (
                       <Chip
-                        key={idx}
-                        label={feature}
+                        key={catIndex}
+                        label={category}
                         size="small"
+                        color="primary"
                         variant="outlined"
-                        sx={{ fontSize: '0.7rem' }}
+                        sx={{ 
+                          fontSize: { xs: '0.7rem', sm: '0.75rem' },
+                          height: { xs: 20, sm: 24 }
+                        }}
                       />
                     ))}
                   </Box>
                 </CardContent>
-                <CardActions>
+                <CardActions sx={{ p: { xs: 2, md: 3 }, pt: 0 }}>
                   <Button
-                    href={tool.url}
+                    href={tool.link}
                     target="_blank"
                     rel="noopener noreferrer"
+                    variant="contained"
                     startIcon={<OpenInNew />}
-                    size="small"
-                    fullWidth={isMobile}
+                    fullWidth
+                    sx={{ 
+                      py: { xs: 1, sm: 1.5 },
+                      fontSize: { xs: '0.9rem', sm: '1rem' },
+                      fontWeight: 'bold'
+                    }}
                   >
                     Visit Tool
                   </Button>
@@ -351,122 +412,177 @@ const Resources = () => {
       </Box>
 
       {/* Learning Paths */}
-      <Box sx={{ mb: { xs: 4, md: 6 } }}>
+      <Box sx={{ py: { xs: 4, md: 6 } }}>
         <Typography 
           variant={isMobile ? "h4" : "h3"} 
           component="h2" 
           gutterBottom 
-          sx={{ textAlign: 'center', mb: { xs: 3, md: 4 } }}
+          sx={{ 
+            textAlign: 'center', 
+            mb: { xs: 4, md: 6 },
+            fontWeight: 'bold',
+            fontSize: { xs: '1.5rem', sm: '1.75rem' }
+          }}
         >
-          🎯 Learning Paths
+          Learning Paths
         </Typography>
-        <Grid container spacing={3}>
+        <Grid container spacing={{ xs: 3, md: 4 }}>
           {learningPaths.map((path, index) => (
-            <Grid item xs={12} md={4} key={index}>
-              <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                    <School color="primary" sx={{ mr: 1 }} />
-                    <Typography variant="h6" component="h3">
-                      {path.title}
-                    </Typography>
-                  </Box>
-                  
-                  <Box sx={{ mb: 2 }}>
-                    <Chip
-                      label={path.duration}
-                      color="secondary"
-                      size="small"
-                      sx={{ mr: 1 }}
-                    />
-                    <Chip
-                      label={path.difficulty}
-                      color={
-                        path.difficulty === 'Beginner' ? 'success' :
-                        path.difficulty === 'Intermediate' ? 'warning' : 'error'
-                      }
-                      size="small"
-                    />
-                  </Box>
-
-                  <Typography variant="body2" color="text.secondary" paragraph>
+            <Grid item xs={12} sm={6} key={index}>
+              <Paper sx={{ 
+                p: { xs: 3, md: 4 },
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                border: '1px solid',
+                borderColor: 'primary.light',
+                backgroundColor: 'primary.light',
+                '& .MuiBox-root': {
+                  backgroundColor: 'background.paper',
+                  height: '100%',
+                  p: { xs: 2, md: 3 },
+                  borderRadius: 1
+                }
+              }}>
+                <Box>
+                  <Typography 
+                    variant="h6" 
+                    component="h3" 
+                    gutterBottom
+                    sx={{ 
+                      fontWeight: 'bold',
+                      fontSize: { xs: '1rem', sm: '1.1rem' },
+                      mb: { xs: 1.5, md: 2 },
+                      color: 'primary.main'
+                    }}
+                  >
+                    {path.title}
+                  </Typography>
+                  <Typography 
+                    variant="body2" 
+                    color="text.secondary"
+                    sx={{ 
+                      mb: { xs: 2, md: 3 },
+                      fontSize: { xs: '0.9rem', sm: '1rem' },
+                      lineHeight: 1.5
+                    }}
+                  >
                     {path.description}
                   </Typography>
-
-                  <Typography variant="subtitle2" gutterBottom>
-                    Topics Covered:
-                  </Typography>
-                  <List dense>
-                    {path.topics.map((topic, idx) => (
-                      <ListItem key={idx} sx={{ py: 0.5 }}>
-                        <ListItemIcon sx={{ minWidth: 32 }}>
-                          <CheckCircle color="success" fontSize="small" />
-                        </ListItemIcon>
-                        <ListItemText primary={topic} />
-                      </ListItem>
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                    {path.topics.map((topic, topicIndex) => (
+                      <Chip
+                        key={topicIndex}
+                        label={topic}
+                        size="small"
+                        variant="outlined"
+                        sx={{ 
+                          fontSize: { xs: '0.7rem', sm: '0.75rem' },
+                          height: { xs: 20, sm: 24 }
+                        }}
+                      />
                     ))}
-                  </List>
-                </CardContent>
-              </Card>
+                  </Box>
+                </Box>
+                <Box sx={{ mt: { xs: 2, md: 3 } }}>
+                  <Typography 
+                    variant="caption" 
+                    color="primary.main"
+                    sx={{ 
+                      fontWeight: 'bold',
+                      textTransform: 'uppercase',
+                      fontSize: { xs: '0.7rem', sm: '0.75rem' }
+                    }}
+                  >
+                    Duration: {path.duration}
+                  </Typography>
+                </Box>
+              </Paper>
             </Grid>
           ))}
         </Grid>
       </Box>
 
       {/* Online Resources */}
-      <Box sx={{ mb: { xs: 4, md: 6 } }}>
+      <Box sx={{ py: { xs: 4, md: 6 } }}>
         <Typography 
           variant={isMobile ? "h4" : "h3"} 
           component="h2" 
           gutterBottom 
-          sx={{ textAlign: 'center', mb: { xs: 3, md: 4 } }}
+          sx={{ 
+            textAlign: 'center', 
+            mb: { xs: 4, md: 6 },
+            fontWeight: 'bold',
+            fontSize: { xs: '1.5rem', sm: '1.75rem' }
+          }}
         >
-          🌐 Online Resources
+          Online Resources
         </Typography>
-        <Grid container spacing={3}>
+        <Grid container spacing={{ xs: 3, md: 4 }}>
           {onlineResources.map((resource, index) => (
-            <Grid item xs={12} md={6} key={index}>
-              <Card>
-                <CardContent>
-                  <Typography variant="h6" component="h3" gutterBottom>
-                    {resource.title}
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Card sx={{ 
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+                '&:hover': {
+                  transform: 'translateY(-4px)',
+                  boxShadow: theme.shadows[8]
+                }
+              }}>
+                <CardContent sx={{ flexGrow: 1, p: { xs: 2, md: 3 } }}>
+                  <Typography 
+                    variant="h6" 
+                    component="h3" 
+                    gutterBottom
+                    sx={{ 
+                      fontWeight: 'bold',
+                      fontSize: { xs: '1rem', sm: '1.1rem' },
+                      mb: { xs: 1.5, md: 2 }
+                    }}
+                  >
+                    {resource.name}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" paragraph>
+                  <Typography 
+                    variant="body2" 
+                    color="text.secondary"
+                    sx={{ 
+                      mb: { xs: 2, md: 3 },
+                      fontSize: { xs: '0.9rem', sm: '1rem' },
+                      lineHeight: 1.5
+                    }}
+                  >
                     {resource.description}
                   </Typography>
-                  
-                  <Box sx={{ mb: 2 }}>
-                    <Chip
-                      label={resource.category}
-                      color="primary"
-                      size="small"
-                      sx={{ mb: 1 }}
-                    />
-                  </Box>
-
-                  <Typography variant="subtitle2" gutterBottom>
-                    Key Features:
-                  </Typography>
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 2 }}>
-                    {resource.features.map((feature, idx) => (
+                  <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                    {resource.tags.map((tag, tagIndex) => (
                       <Chip
-                        key={idx}
-                        label={feature}
+                        key={tagIndex}
+                        label={tag}
                         size="small"
                         variant="outlined"
-                        sx={{ fontSize: '0.7rem' }}
+                        sx={{ 
+                          fontSize: { xs: '0.7rem', sm: '0.75rem' },
+                          height: { xs: 20, sm: 24 }
+                        }}
                       />
                     ))}
                   </Box>
                 </CardContent>
-                <CardActions>
+                <CardActions sx={{ p: { xs: 2, md: 3 }, pt: 0 }}>
                   <Button
-                    href={resource.url}
+                    href={resource.link}
                     target="_blank"
                     rel="noopener noreferrer"
+                    variant="outlined"
                     startIcon={<OpenInNew />}
-                    size="small"
-                    fullWidth={isMobile}
+                    fullWidth
+                    sx={{ 
+                      py: { xs: 1, sm: 1.5 },
+                      fontSize: { xs: '0.9rem', sm: '1rem' }
+                    }}
                   >
                     Visit Resource
                   </Button>
@@ -477,60 +593,111 @@ const Resources = () => {
         </Grid>
       </Box>
 
-      {/* Practice Resources */}
-      <Box sx={{ mb: { xs: 4, md: 6 } }}>
+      {/* Practice Platforms */}
+      <Box sx={{ py: { xs: 4, md: 6 } }}>
         <Typography 
           variant={isMobile ? "h4" : "h3"} 
           component="h2" 
           gutterBottom 
-          sx={{ textAlign: 'center', mb: { xs: 3, md: 4 } }}
+          sx={{ 
+            textAlign: 'center', 
+            mb: { xs: 4, md: 6 },
+            fontWeight: 'bold',
+            fontSize: { xs: '1.5rem', sm: '1.75rem' }
+          }}
         >
-          🎯 Practice Resources
+          Practice Platforms
         </Typography>
-        <Grid container spacing={3}>
+        <Grid container spacing={{ xs: 3, md: 4 }}>
           {practiceResources.map((resource, index) => (
-            <Grid item xs={12} md={4} key={index}>
-              <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography variant="h6" component="h3" gutterBottom>
-                    {resource.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" paragraph>
+            <Grid item xs={12} sm={6} key={index}>
+              <Card sx={{ 
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+                '&:hover': {
+                  transform: 'translateY(-4px)',
+                  boxShadow: theme.shadows[8]
+                }
+              }}>
+                <CardContent sx={{ flexGrow: 1, p: { xs: 2, md: 3 } }}>
+                  <Box sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    mb: { xs: 2, md: 3 }
+                  }}>
+                    <Typography 
+                      variant="h3" 
+                      sx={{ 
+                        mr: 2,
+                        fontSize: { xs: '2rem', sm: '2.5rem' }
+                      }}
+                    >
+                      {resource.icon}
+                    </Typography>
+                    <Box>
+                      <Typography 
+                        variant="h6" 
+                        component="h3"
+                        sx={{ 
+                          fontWeight: 'bold',
+                          fontSize: { xs: '1rem', sm: '1.1rem' }
+                        }}
+                      >
+                        {resource.name}
+                      </Typography>
+                      <Typography 
+                        variant="body2" 
+                        color="text.secondary"
+                        sx={{ 
+                          fontSize: { xs: '0.8rem', sm: '0.9rem' }
+                        }}
+                      >
+                        {resource.type}
+                      </Typography>
+                    </Box>
+                  </Box>
+                  <Typography 
+                    variant="body2" 
+                    color="text.secondary"
+                    sx={{ 
+                      mb: { xs: 2, md: 3 },
+                      fontSize: { xs: '0.9rem', sm: '1rem' },
+                      lineHeight: 1.5
+                    }}
+                  >
                     {resource.description}
                   </Typography>
-                  
-                  <Box sx={{ mb: 2 }}>
-                    <Chip
-                      label={resource.category}
-                      color="secondary"
-                      size="small"
-                      sx={{ mb: 1 }}
-                    />
-                  </Box>
-
-                  <Typography variant="subtitle2" gutterBottom>
-                    Features:
-                  </Typography>
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                    {resource.features.map((feature, idx) => (
+                  <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                    {resource.features.map((feature, featureIndex) => (
                       <Chip
-                        key={idx}
+                        key={featureIndex}
                         label={feature}
                         size="small"
+                        color="secondary"
                         variant="outlined"
-                        sx={{ fontSize: '0.7rem' }}
+                        sx={{ 
+                          fontSize: { xs: '0.7rem', sm: '0.75rem' },
+                          height: { xs: 20, sm: 24 }
+                        }}
                       />
                     ))}
                   </Box>
                 </CardContent>
-                <CardActions>
+                <CardActions sx={{ p: { xs: 2, md: 3 }, pt: 0 }}>
                   <Button
                     href={resource.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    variant="contained"
                     startIcon={<OpenInNew />}
-                    size="small"
                     fullWidth
+                    sx={{ 
+                      py: { xs: 1, sm: 1.5 },
+                      fontSize: { xs: '0.9rem', sm: '1rem' },
+                      fontWeight: 'bold'
+                    }}
                   >
                     Start Practicing
                   </Button>
@@ -539,31 +706,6 @@ const Resources = () => {
             </Grid>
           ))}
         </Grid>
-      </Box>
-
-      {/* Call to Action */}
-      <Box sx={{ textAlign: 'center', py: { xs: 3, md: 4 } }}>
-        <Paper elevation={3} sx={{ p: { xs: 3, md: 4 }, bgcolor: 'secondary.main', color: 'white' }}>
-          <Typography variant={isMobile ? "h5" : "h4"} component="h2" gutterBottom>
-            🚀 Ready to Master System Design?
-          </Typography>
-          <Typography variant={isMobile ? "body1" : "h6"} paragraph>
-            Start with the fundamentals and build your way up to complex distributed systems
-          </Typography>
-          <Box sx={{ 
-            display: 'flex', 
-            justifyContent: 'center', 
-            gap: 2, 
-            flexWrap: 'wrap', 
-            mt: 3,
-            flexDirection: { xs: 'column', sm: 'row' }
-          }}>
-            <Chip label="Study the books" color="inherit" variant="outlined" />
-            <Chip label="Use the tools" color="inherit" variant="outlined" />
-            <Chip label="Follow the paths" color="inherit" variant="outlined" />
-            <Chip label="Practice regularly" color="inherit" variant="outlined" />
-          </Box>
-        </Paper>
       </Box>
     </Container>
   );

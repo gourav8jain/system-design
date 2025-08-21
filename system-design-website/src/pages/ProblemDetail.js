@@ -7,25 +7,15 @@ import {
   Grid,
   Card,
   CardContent,
-  Chip,
   Button,
+  Chip,
   Tabs,
   Tab,
   Paper,
-  List,
-  ListItem,
-  ListItemText,
   useTheme,
   useMediaQuery,
 } from '@mui/material';
-import {
-  CheckCircle,
-  TrendingUp,
-  Speed,
-  ArrowBack,
-  School,
-  Code,
-} from '@mui/icons-material';
+import { ArrowBack, School, Code, TrendingUp } from '@mui/icons-material';
 
 const ProblemDetail = () => {
   const { problemId } = useParams();
@@ -33,9 +23,7 @@ const ProblemDetail = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const handleTabChange = (event, newValue) => {
-    setSelectedTab(newValue);
-  };
+
 
   // Mock data for different problems - in a real app, this would come from an API
   const problemData = {
@@ -649,291 +637,622 @@ const ProblemDetail = () => {
   return (
     <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
       {/* Header */}
-      <Box sx={{ py: { xs: 3, md: 4 } }}>
+      <Box sx={{ py: { xs: 4, md: 6 } }}>
         <Button
           component={RouterLink}
           to="/problems"
           startIcon={<ArrowBack />}
-          sx={{ mb: 2 }}
+          sx={{ 
+            mb: { xs: 3, md: 4 },
+            py: { xs: 1, sm: 1.5 },
+            px: { xs: 2, sm: 3 },
+            fontSize: { xs: '0.9rem', sm: '1rem' }
+          }}
           fullWidth={isMobile}
         >
           Back to Problems
         </Button>
         
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3, flexDirection: { xs: 'column', sm: 'row' } }}>
-          <Typography variant={isMobile ? "h2" : "h1"} sx={{ mr: { xs: 0, sm: 2 }, mb: { xs: 1, sm: 0 } }}>
+        <Box sx={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          mb: { xs: 4, md: 5 }, 
+          flexDirection: { xs: 'column', sm: 'row' },
+          textAlign: { xs: 'center', sm: 'left' }
+        }}>
+          <Typography 
+            variant={isMobile ? "h2" : "h1"} 
+            sx={{ 
+              mr: { xs: 0, sm: 3 }, 
+              mb: { xs: 2, sm: 0 },
+              fontSize: { xs: '3rem', sm: '4rem', md: '5rem' }
+            }}
+          >
             {problem.icon}
           </Typography>
-          <Box sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
-            <Typography variant={isMobile ? "h3" : "h2"} component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
+          <Box sx={{ flexGrow: 1 }}>
+            <Typography 
+              variant={isMobile ? "h3" : "h2"} 
+              component="h1" 
+              gutterBottom 
+              sx={{ 
+                fontWeight: 'bold',
+                fontSize: { xs: '1.75rem', sm: '2.125rem', md: '2.5rem' },
+                mb: { xs: 2, md: 3 }
+              }}
+            >
               {problem.title}
             </Typography>
-            <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', justifyContent: { xs: 'center', sm: 'flex-start' } }}>
+            <Box sx={{ 
+              display: 'flex', 
+              gap: 1, 
+              flexWrap: 'wrap', 
+              justifyContent: { xs: 'center', sm: 'flex-start' },
+              mb: { xs: 2, md: 3 }
+            }}>
               <Chip
                 label={problem.difficulty}
                 color={
                   problem.difficulty === 'Basic' ? 'success' :
                   problem.difficulty === 'Intermediate' ? 'warning' : 'error'
                 }
+                sx={{ 
+                  fontSize: { xs: '0.8rem', sm: '0.9rem' },
+                  height: { xs: 28, sm: 32 }
+                }}
               />
-              <Chip label={problem.category} variant="outlined" />
-              <Chip label={`Scale: ${problem.scale}`} color="info" variant="outlined" />
-              <Chip label={`Complexity: ${problem.complexity}`} color="secondary" variant="outlined" />
+              <Chip 
+                label={problem.category} 
+                variant="outlined" 
+                sx={{ 
+                  fontSize: { xs: '0.8rem', sm: '0.9rem' },
+                  height: { xs: 28, sm: 32 }
+                }}
+              />
+              <Chip 
+                label={`Scale: ${problem.scale}`} 
+                color="info" 
+                variant="outlined"
+                sx={{ 
+                  fontSize: { xs: '0.8rem', sm: '0.9rem' },
+                  height: { xs: 28, sm: 32 }
+                }}
+              />
+              <Chip 
+                label={`Complexity: ${problem.complexity}`} 
+                color="secondary" 
+                variant="outlined"
+                sx={{ 
+                  fontSize: { xs: '0.8rem', sm: '0.9rem' },
+                  height: { xs: 28, sm: 32 }
+                }}
+              />
             </Box>
+            <Typography 
+              variant="body1" 
+              color="text.secondary"
+              sx={{ 
+                fontSize: { xs: '1rem', sm: '1.1rem' },
+                lineHeight: 1.6,
+                maxWidth: '90%'
+              }}
+            >
+              {problem.description}
+            </Typography>
           </Box>
         </Box>
-
-        <Typography variant={isMobile ? "body1" : "h6"} color="text.secondary" paragraph>
-          {problem.description}
-        </Typography>
       </Box>
 
       {/* Tabs */}
-      <Paper elevation={1} sx={{ mb: 4 }}>
-        <Tabs
-          value={selectedTab}
-          onChange={handleTabChange}
-          variant="scrollable"
-          scrollButtons="auto"
-          sx={{ '& .MuiTab-root': { py: 2 } }}
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: { xs: 4, md: 5 } }}>
+        <Tabs 
+          value={selectedTab} 
+          onChange={(e, newValue) => setSelectedTab(newValue)}
+          variant={isMobile ? "scrollable" : "fullWidth"}
+          scrollButtons={isMobile ? "auto" : false}
+          sx={{
+            '& .MuiTab-root': {
+              minHeight: { xs: 48, sm: 56 },
+              fontSize: { xs: '0.9rem', sm: '1rem' },
+              fontWeight: 'bold',
+              textTransform: 'none',
+              px: { xs: 2, sm: 3 },
+            },
+          }}
         >
-          {tabLabels.map((label, index) => (
-            <Tab key={index} label={label} />
+          {tabLabels.map((label) => (
+            <Tab key={label} label={label} />
           ))}
         </Tabs>
-      </Paper>
+      </Box>
 
       {/* Tab Content */}
-      {selectedTab === 0 && (
-        <Box>
-          {/* Requirements */}
-          <Grid container spacing={3} sx={{ mb: 4 }}>
-            <Grid item xs={12} md={6}>
-              <Card>
-                <CardContent>
-                  <Typography variant="h6" component="h3" gutterBottom>
-                    <CheckCircle color="primary" sx={{ mr: 1 }} />
+      <Box sx={{ pb: { xs: 6, md: 8 } }}>
+        {selectedTab === 0 && (
+          <Box>
+            <Typography 
+              variant={isMobile ? "h4" : "h3"} 
+              component="h2" 
+              gutterBottom
+              sx={{ 
+                fontWeight: 'bold',
+                mb: { xs: 3, md: 4 },
+                fontSize: { xs: '1.5rem', sm: '1.75rem' }
+              }}
+            >
+              Requirements & Scale Estimation
+            </Typography>
+            
+            <Grid container spacing={{ xs: 3, md: 4 }}>
+              <Grid item xs={12} md={6}>
+                <Paper sx={{ p: { xs: 3, md: 4 }, height: '100%' }}>
+                  <Typography 
+                    variant="h6" 
+                    gutterBottom
+                    sx={{ 
+                      fontWeight: 'bold',
+                      mb: { xs: 2, md: 3 },
+                      fontSize: { xs: '1.1rem', sm: '1.25rem' }
+                    }}
+                  >
                     Functional Requirements
                   </Typography>
-                  <List dense>
+                  <Box sx={{ mb: { xs: 2, md: 3 } }}>
                     {problem.requirements.functional.map((req, index) => (
-                      <ListItem key={index} sx={{ py: 0.5 }}>
-                        <ListItemText primary={req} />
-                      </ListItem>
+                      <Box key={index} sx={{ 
+                        display: 'flex', 
+                        alignItems: 'flex-start', 
+                        mb: 1,
+                        gap: 1
+                      }}>
+                        <Box sx={{ 
+                          color: 'success.main', 
+                          mt: 0.2,
+                          flexShrink: 0
+                        }}>
+                          ✓
+                        </Box>
+                        <Typography 
+                          variant="body2"
+                          sx={{ 
+                            fontSize: { xs: '0.9rem', sm: '1rem' },
+                            lineHeight: 1.5
+                          }}
+                        >
+                          {req}
+                        </Typography>
+                      </Box>
                     ))}
-                  </List>
-                </CardContent>
-              </Card>
-            </Grid>
-            
-            <Grid item xs={12} md={6}>
-              <Card>
-                <CardContent>
-                  <Typography variant="h6" component="h3" gutterBottom>
-                    <TrendingUp color="primary" sx={{ mr: 1 }} />
+                  </Box>
+                </Paper>
+              </Grid>
+              
+              <Grid item xs={12} md={6}>
+                <Paper sx={{ p: { xs: 3, md: 4 }, height: '100%' }}>
+                  <Typography 
+                    variant="h6" 
+                    gutterBottom
+                    sx={{ 
+                      fontWeight: 'bold',
+                      mb: { xs: 2, md: 3 },
+                      fontSize: { xs: '1.1rem', sm: '1.25rem' }
+                    }}
+                  >
                     Non-Functional Requirements
                   </Typography>
-                  <List dense>
+                  <Box sx={{ mb: { xs: 2, md: 3 } }}>
                     {problem.requirements.nonFunctional.map((req, index) => (
-                      <ListItem key={index} sx={{ py: 0.5 }}>
-                        <ListItemText primary={req} />
-                      </ListItem>
+                      <Box key={index} sx={{ 
+                        display: 'flex', 
+                        alignItems: 'flex-start', 
+                        mb: 1,
+                        gap: 1
+                      }}>
+                        <Box sx={{ 
+                          color: 'info.main', 
+                          mt: 0.2,
+                          flexShrink: 0
+                        }}>
+                          ⚡
+                        </Box>
+                        <Typography 
+                          variant="body2"
+                          sx={{ 
+                            fontSize: { xs: '0.9rem', sm: '1rem' },
+                            lineHeight: 1.5
+                          }}
+                        >
+                          {req}
+                        </Typography>
+                      </Box>
                     ))}
-                  </List>
-                </CardContent>
-              </Card>
+                  </Box>
+                </Paper>
+              </Grid>
             </Grid>
-          </Grid>
 
-          {/* Scale Estimation */}
-          <Card sx={{ mb: 4 }}>
-            <CardContent>
-              <Typography variant="h6" component="h3" gutterBottom>
-                📊 Scale Estimation
-              </Typography>
-              <Grid container spacing={3}>
-                {Object.entries(problem.scaleEstimation).map(([key, value]) => (
-                  <Grid item xs={12} sm={6} md={3} key={key}>
-                    <Box sx={{ textAlign: 'center' }}>
-                      <Typography variant="h6" color="primary" gutterBottom>
-                        {value}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" sx={{ textTransform: 'capitalize' }}>
-                        {key.replace(/([A-Z])/g, ' $1').trim()}
-                      </Typography>
-                    </Box>
-                  </Grid>
-                ))}
-              </Grid>
-            </CardContent>
-          </Card>
-        </Box>
-      )}
-
-      {selectedTab === 1 && (
-        <Box>
-          <Card sx={{ mb: 4 }}>
-            <CardContent>
-              <Typography variant="h6" component="h3" gutterBottom>
-                🏗️ System Components
-              </Typography>
-              <Grid container spacing={2}>
-                {problem.architecture.components.map((component, index) => (
-                  <Grid item xs={12} sm={6} md={4} key={index}>
-                    <Chip
-                      label={component}
-                      variant="outlined"
-                      sx={{ mb: 1 }}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent>
-              <Typography variant="h6" component="h3" gutterBottom>
-                📐 Architecture Diagram
-              </Typography>
-              <Box
-                component="pre"
-                sx={{
-                  bgcolor: 'grey.100',
-                  p: 2,
-                  borderRadius: 1,
-                  overflow: 'auto',
-                  fontSize: { xs: '0.7rem', sm: '0.8rem' },
-                  fontFamily: 'monospace',
-                  whiteSpace: 'pre',
+            <Box sx={{ mt: { xs: 4, md: 5 } }}>
+              <Typography 
+                variant="h5" 
+                gutterBottom
+                sx={{ 
+                  fontWeight: 'bold',
+                  mb: { xs: 3, md: 4 },
+                  fontSize: { xs: '1.25rem', sm: '1.5rem' }
                 }}
               >
-                {problem.architecture.diagram}
-              </Box>
-            </CardContent>
-          </Card>
-        </Box>
-      )}
-
-      {selectedTab === 2 && (
-        <Box>
-          <Card>
-            <CardContent>
-              <Typography variant="h6" component="h3" gutterBottom>
-                🗄️ Database Design
+                Scale Estimation
               </Typography>
-              <Grid container spacing={3}>
-                {problem.database.tables.map((table, index) => (
-                  <Grid item xs={12} md={6} key={index}>
-                    <Paper variant="outlined" sx={{ p: 2 }}>
-                      <Typography variant="subtitle1" gutterBottom sx={{ fontWeight: 'bold' }}>
-                        {table.name} Table
+              <Grid container spacing={{ xs: 2, md: 3 }}>
+                {Object.entries(problem.scaleEstimation).map(([key, value]) => (
+                  <Grid item xs={6} sm={3} key={key}>
+                    <Paper sx={{ 
+                      p: { xs: 2, md: 3 }, 
+                      textAlign: 'center',
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center'
+                    }}>
+                      <Typography 
+                        variant="h6" 
+                        color="primary.main"
+                        sx={{ 
+                          fontWeight: 'bold',
+                          fontSize: { xs: '1rem', sm: '1.1rem' },
+                          mb: 1
+                        }}
+                      >
+                        {value}
                       </Typography>
-                      
-                      <Typography variant="body2" gutterBottom>
-                        <strong>Fields:</strong>
+                      <Typography 
+                        variant="caption" 
+                        color="text.secondary"
+                        sx={{ 
+                          textTransform: 'capitalize',
+                          fontSize: { xs: '0.7rem', sm: '0.75rem' },
+                          fontWeight: 'bold'
+                        }}
+                      >
+                        {key.replace(/([A-Z])/g, ' $1').trim()}
                       </Typography>
-                      <Box sx={{ mb: 2 }}>
-                        {table.fields.map((field, idx) => (
-                          <Chip
-                            key={idx}
-                            label={field}
-                            size="small"
-                            variant="outlined"
-                            sx={{ mr: 0.5, mb: 0.5 }}
-                          />
-                        ))}
-                      </Box>
-                      
-                      <Typography variant="body2" gutterBottom>
-                        <strong>Indexes:</strong>
-                      </Typography>
-                      <Box>
-                        {table.indexes.map((index, idx) => (
-                          <Chip
-                            key={idx}
-                            label={index}
-                            size="small"
-                            color="secondary"
-                            variant="outlined"
-                            sx={{ mr: 0.5, mb: 0.5 }}
-                          />
-                        ))}
-                      </Box>
                     </Paper>
                   </Grid>
                 ))}
               </Grid>
-            </CardContent>
-          </Card>
-        </Box>
-      )}
+            </Box>
+          </Box>
+        )}
 
-      {selectedTab === 3 && (
-        <Box>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
-              <Card>
-                <CardContent>
-                  <Typography variant="h6" component="h3" gutterBottom>
-                    <Speed color="primary" sx={{ mr: 1 }} />
-                    Caching Strategy
-                  </Typography>
-                  <List dense>
-                    {problem.optimization.caching.map((strategy, index) => (
-                      <ListItem key={index} sx={{ py: 0.5 }}>
-                        <ListItemText primary={strategy} />
-                      </ListItem>
-                    ))}
-                  </List>
-                </CardContent>
-              </Card>
-            </Grid>
+        {selectedTab === 1 && (
+          <Box>
+            <Typography 
+              variant={isMobile ? "h4" : "h3"} 
+              component="h2" 
+              gutterBottom
+              sx={{ 
+                fontWeight: 'bold',
+                mb: { xs: 3, md: 4 },
+                fontSize: { xs: '1.5rem', sm: '1.75rem' }
+              }}
+            >
+              System Architecture
+            </Typography>
             
-            <Grid item xs={12} md={6}>
-              <Card>
-                <CardContent>
-                  <Typography variant="h6" component="h3" gutterBottom>
-                    <TrendingUp color="primary" sx={{ mr: 1 }} />
+            <Grid container spacing={{ xs: 3, md: 4 }}>
+              <Grid item xs={12} md={6}>
+                <Paper sx={{ p: { xs: 3, md: 4 } }}>
+                  <Typography 
+                    variant="h6" 
+                    gutterBottom
+                    sx={{ 
+                      fontWeight: 'bold',
+                      mb: { xs: 2, md: 3 },
+                      fontSize: { xs: '1.1rem', sm: '1.25rem' }
+                    }}
+                  >
+                    System Components
+                  </Typography>
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                    {problem.architecture.components.map((component, index) => (
+                      <Chip
+                        key={index}
+                        label={component}
+                        variant="outlined"
+                        sx={{ 
+                          fontSize: { xs: '0.8rem', sm: '0.9rem' },
+                          height: { xs: 28, sm: 32 }
+                        }}
+                      />
+                    ))}
+                  </Box>
+                </Paper>
+              </Grid>
+              
+              <Grid item xs={12} md={6}>
+                <Paper sx={{ p: { xs: 3, md: 4 } }}>
+                  <Typography 
+                    variant="h6" 
+                    gutterBottom
+                    sx={{ 
+                      fontWeight: 'bold',
+                      mb: { xs: 2, md: 3 },
+                      fontSize: { xs: '1.1rem', sm: '1.25rem' }
+                    }}
+                  >
+                    Architecture Diagram
+                  </Typography>
+                  <Box sx={{ 
+                    backgroundColor: 'grey.50', 
+                    p: 2, 
+                    borderRadius: 1,
+                    overflow: 'auto'
+                  }}>
+                    <pre style={{ 
+                      margin: 0, 
+                      fontSize: isMobile ? '0.7rem' : '0.8rem',
+                      lineHeight: 1.4,
+                      fontFamily: 'monospace'
+                    }}>
+                      {problem.architecture.diagram}
+                    </pre>
+                  </Box>
+                </Paper>
+              </Grid>
+            </Grid>
+          </Box>
+        )}
+
+        {selectedTab === 2 && (
+          <Box>
+            <Typography 
+              variant={isMobile ? "h4" : "h3"} 
+              component="h2" 
+              gutterBottom
+              sx={{ 
+                fontWeight: 'bold',
+                mb: { xs: 3, md: 4 },
+                fontSize: { xs: '1.5rem', sm: '1.75rem' }
+              }}
+            >
+              Database Design
+            </Typography>
+            
+            <Grid container spacing={{ xs: 3, md: 4 }}>
+              {problem.database.tables.map((table, index) => (
+                <Grid item xs={12} md={6} key={index}>
+                  <Paper sx={{ p: { xs: 3, md: 4 }, height: '100%' }}>
+                    <Typography 
+                      variant="h6" 
+                      gutterBottom
+                      sx={{ 
+                        fontWeight: 'bold',
+                        mb: { xs: 2, md: 3 },
+                        fontSize: { xs: '1.1rem', sm: '1.25rem' },
+                        color: 'primary.main'
+                      }}
+                    >
+                      Table: {table.name}
+                    </Typography>
+                    
+                    <Box sx={{ mb: { xs: 2, md: 3 } }}>
+                      <Typography 
+                        variant="subtitle2" 
+                        gutterBottom
+                        sx={{ 
+                          fontWeight: 'bold',
+                          fontSize: { xs: '0.9rem', sm: '1rem' }
+                        }}
+                      >
+                        Fields:
+                      </Typography>
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 2 }}>
+                        {table.fields.map((field, fieldIndex) => (
+                          <Chip
+                            key={fieldIndex}
+                            label={field}
+                            size="small"
+                            variant="outlined"
+                            sx={{ 
+                              fontSize: { xs: '0.7rem', sm: '0.75rem' },
+                              height: { xs: 20, sm: 24 }
+                            }}
+                          />
+                        ))}
+                      </Box>
+                    </Box>
+                    
+                    <Box>
+                      <Typography 
+                        variant="subtitle2" 
+                        gutterBottom
+                        sx={{ 
+                          fontWeight: 'bold',
+                          fontSize: { xs: '0.9rem', sm: '1rem' }
+                        }}
+                      >
+                        Indexes:
+                      </Typography>
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                        {table.indexes.map((index, indexIndex) => (
+                          <Chip
+                            key={indexIndex}
+                            label={index}
+                            size="small"
+                            color="secondary"
+                            variant="outlined"
+                            sx={{ 
+                              fontSize: { xs: '0.7rem', sm: '0.75rem' },
+                              height: { xs: 20, sm: 24 }
+                            }}
+                          />
+                        ))}
+                      </Box>
+                    </Box>
+                  </Paper>
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+        )}
+
+        {selectedTab === 3 && (
+          <Box>
+            <Typography 
+              variant={isMobile ? "h4" : "h3"} 
+              component="h2" 
+              gutterBottom
+              sx={{ 
+                fontWeight: 'bold',
+                mb: { xs: 3, md: 4 },
+                fontSize: { xs: '1.5rem', sm: '1.75rem' }
+              }}
+            >
+              Performance Optimization
+            </Typography>
+            
+            <Grid container spacing={{ xs: 3, md: 4 }}>
+              <Grid item xs={12} md={6}>
+                <Paper sx={{ p: { xs: 3, md: 4 }, height: '100%' }}>
+                  <Typography 
+                    variant="h6" 
+                    gutterBottom
+                    sx={{ 
+                      fontWeight: 'bold',
+                      mb: { xs: 2, md: 3 },
+                      fontSize: { xs: '1.1rem', sm: '1.25rem' },
+                      color: 'success.main'
+                    }}
+                  >
+                    Caching Strategies
+                  </Typography>
+                  <Box>
+                    {problem.optimization.caching.map((strategy, index) => (
+                      <Box key={index} sx={{ 
+                        display: 'flex', 
+                        alignItems: 'flex-start', 
+                        mb: 1,
+                        gap: 1
+                      }}>
+                        <Box sx={{ 
+                          color: 'success.main', 
+                          mt: 0.2,
+                          flexShrink: 0
+                        }}>
+                          🚀
+                        </Box>
+                        <Typography 
+                          variant="body2"
+                          sx={{ 
+                            fontSize: { xs: '0.9rem', sm: '1rem' },
+                            lineHeight: 1.5
+                          }}
+                        >
+                          {strategy}
+                        </Typography>
+                      </Box>
+                    ))}
+                  </Box>
+                </Paper>
+              </Grid>
+              
+              <Grid item xs={12} md={6}>
+                <Paper sx={{ p: { xs: 3, md: 4 }, height: '100%' }}>
+                  <Typography 
+                    variant="h6" 
+                    gutterBottom
+                    sx={{ 
+                      fontWeight: 'bold',
+                      mb: { xs: 2, md: 3 },
+                      fontSize: { xs: '1.1rem', sm: '1.25rem' },
+                      color: 'info.main'
+                    }}
+                  >
                     Scaling Strategies
                   </Typography>
-                  <List dense>
+                  <Box>
                     {problem.optimization.scaling.map((strategy, index) => (
-                      <ListItem key={index} sx={{ py: 0.5 }}>
-                        <ListItemText primary={strategy} />
-                      </ListItem>
+                      <Box key={index} sx={{ 
+                        display: 'flex', 
+                        alignItems: 'flex-start', 
+                        mb: 1,
+                        gap: 1
+                      }}>
+                        <Box sx={{ 
+                          color: 'info.main', 
+                          mt: 0.2,
+                          flexShrink: 0
+                        }}>
+                          📈
+                        </Box>
+                        <Typography 
+                          variant="body2"
+                          sx={{ 
+                            fontSize: { xs: '0.9rem', sm: '1rem' },
+                            lineHeight: 1.5
+                          }}
+                        >
+                          {strategy}
+                        </Typography>
+                      </Box>
                     ))}
-                  </List>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
-        </Box>
-      )}
-
-      {selectedTab === 4 && (
-        <Box>
-          <Card>
-            <CardContent>
-              <Typography variant="h6" component="h3" gutterBottom>
-                🔒 Security Considerations
-              </Typography>
-              <Grid container spacing={2}>
-                {problem.security.map((item, index) => (
-                  <Grid item xs={12} sm={6} md={4} key={index}>
-                    <Chip
-                      label={item}
-                      color="primary"
-                      variant="outlined"
-                      sx={{ mb: 1 }}
-                    />
-                  </Grid>
-                ))}
+                  </Box>
+                </Paper>
               </Grid>
-            </CardContent>
-          </Card>
-        </Box>
-      )}
+            </Grid>
+          </Box>
+        )}
+
+        {selectedTab === 4 && (
+          <Box>
+            <Typography 
+              variant={isMobile ? "h4" : "h3"} 
+              component="h2" 
+              gutterBottom
+              sx={{ 
+                fontWeight: 'bold',
+                mb: { xs: 3, md: 4 },
+                fontSize: { xs: '1.5rem', sm: '1.75rem' }
+              }}
+            >
+              Security Considerations
+            </Typography>
+            
+            <Grid container spacing={{ xs: 3, md: 4 }}>
+              {problem.security.map((item, index) => (
+                <Grid item xs={12} sm={6} md={4} key={index}>
+                  <Paper sx={{ 
+                    p: { xs: 3, md: 4 }, 
+                    height: '100%',
+                    border: '1px solid',
+                    borderColor: 'warning.light',
+                    backgroundColor: 'warning.light',
+                    '& .MuiBox-root': {
+                      backgroundColor: 'background.paper',
+                      height: '100%',
+                      p: { xs: 2, md: 3 },
+                      borderRadius: 1
+                    }
+                  }}>
+                    <Box>
+                      <Typography 
+                        variant="body2"
+                        sx={{ 
+                          fontSize: { xs: '0.9rem', sm: '1rem' },
+                          lineHeight: 1.5,
+                          fontWeight: 'medium'
+                        }}
+                      >
+                        {item}
+                      </Typography>
+                    </Box>
+                  </Paper>
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+        )}
+      </Box>
 
       {/* Additional Resources */}
       <Box sx={{ mt: 6 }}>

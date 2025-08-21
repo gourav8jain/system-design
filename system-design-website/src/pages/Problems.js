@@ -14,7 +14,6 @@ import {
   Tab,
   TextField,
   InputAdornment,
-  Paper,
   useTheme,
   useMediaQuery,
 } from '@mui/material';
@@ -165,31 +164,7 @@ const Problems = () => {
     ],
   };
 
-  const handleTabChange = (event, newValue) => {
-    setSelectedTab(newValue);
-  };
-
-  const getDifficultyColor = (difficulty) => {
-    switch (difficulty) {
-      case 'Basic': return 'success';
-      case 'Intermediate': return 'warning';
-      case 'Advanced': return 'error';
-      default: return 'default';
-    }
-  };
-
-  const getScaleColor = (scale) => {
-    switch (scale) {
-      case 'Low': return 'success';
-      case 'Medium': return 'info';
-      case 'High': return 'warning';
-      case 'Very High': return 'error';
-      case 'Extremely High': return 'error';
-      default: return 'default';
-    }
-  };
-
-  const filteredProblems = () => {
+  const getFilteredProblems = () => {
     const tabProblems = selectedTab === 0 ? problems.basic : 
                        selectedTab === 1 ? problems.intermediate : problems.advanced;
     
@@ -202,168 +177,265 @@ const Problems = () => {
     );
   };
 
-  const tabLabels = ['Basic Level', 'Intermediate Level', 'Advanced Level'];
-
   return (
     <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
       {/* Header */}
-      <Box sx={{ textAlign: 'center', py: { xs: 4, md: 6 } }}>
+      <Box sx={{ py: { xs: 4, md: 6 } }}>
         <Typography 
           variant={isMobile ? "h3" : "h2"} 
           component="h1" 
           gutterBottom 
-          sx={{ fontWeight: 'bold' }}
+          sx={{ 
+            textAlign: 'center', 
+            mb: { xs: 3, md: 4 },
+            fontWeight: 'bold',
+            fontSize: { xs: '1.75rem', sm: '2.125rem' }
+          }}
         >
-          🚀 System Design Problems
+          System Design Problems
         </Typography>
         <Typography 
-          variant={isMobile ? "body1" : "h6"} 
+          variant="body1" 
           color="text.secondary" 
-          paragraph
+          sx={{ 
+            textAlign: 'center', 
+            mb: { xs: 4, md: 5 },
+            maxWidth: 800,
+            mx: 'auto',
+            px: { xs: 2, sm: 0 },
+            fontSize: { xs: '1rem', sm: '1.1rem' },
+            lineHeight: 1.6
+          }}
         >
-          Master system design through hands-on problem solving
+          Master system design through hands-on problems. Start with basic concepts and progress to advanced distributed systems.
         </Typography>
-      </Box>
 
-      {/* Search and Tabs */}
-      <Box sx={{ mb: 4 }}>
-        <Grid container spacing={3} alignItems="center">
-          <Grid item xs={12} md={6}>
-            <TextField
-              fullWidth
-              placeholder="Search problems by title, description, or category..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Search />
-                  </InputAdornment>
-                ),
-              }}
+        {/* Search Bar */}
+        <Box sx={{ maxWidth: 600, mx: 'auto', mb: { xs: 4, md: 5 } }}>
+          <TextField
+            fullWidth
+            placeholder="Search problems by title, category, or difficulty..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search />
+                </InputAdornment>
+              ),
+            }}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                borderRadius: 3,
+                '&:hover fieldset': {
+                  borderColor: 'primary.main',
+                },
+              },
+            }}
+          />
+        </Box>
+
+        {/* Difficulty Tabs */}
+        <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: { xs: 4, md: 5 } }}>
+          <Tabs 
+            value={selectedTab} 
+            onChange={(e, newValue) => setSelectedTab(newValue)}
+            variant={isMobile ? "scrollable" : "fullWidth"}
+            scrollButtons={isMobile ? "auto" : false}
+            sx={{
+              '& .MuiTab-root': {
+                minHeight: { xs: 48, sm: 56 },
+                fontSize: { xs: '0.9rem', sm: '1rem' },
+                fontWeight: 'bold',
+                textTransform: 'none',
+                px: { xs: 2, sm: 3 },
+              },
+            }}
+          >
+            <Tab 
+              label={isMobile ? "Basic" : "Basic Problems"} 
+              icon={<School />} 
+              iconPosition="start"
             />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Paper elevation={1} sx={{ borderRadius: 2 }}>
-              <Tabs
-                value={selectedTab}
-                onChange={handleTabChange}
-                variant="fullWidth"
-                sx={{ '& .MuiTab-root': { py: 2 } }}
-              >
-                {tabLabels.map((label, index) => (
-                  <Tab
-                    key={index}
-                    label={
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                        {index === 0 && <Code color="success" />}
-                        {index === 1 && <TrendingUp color="warning" />}
-                        {index === 2 && <School color="error" />}
-                        <Typography sx={{ display: { xs: 'none', sm: 'inline' } }}>
-                          {label}
-                        </Typography>
-                      </Box>
-                    }
-                  />
-                ))}
-              </Tabs>
-            </Paper>
-          </Grid>
-        </Grid>
+            <Tab 
+              label={isMobile ? "Intermediate" : "Intermediate Problems"} 
+              icon={<Code />} 
+              iconPosition="start"
+            />
+            <Tab 
+              label={isMobile ? "Advanced" : "Advanced Problems"} 
+              icon={<TrendingUp />} 
+              iconPosition="start"
+            />
+          </Tabs>
+        </Box>
       </Box>
 
       {/* Problems Grid */}
-      <Grid container spacing={3}>
-        {filteredProblems().map((problem) => (
-          <Grid item xs={12} md={6} lg={4} key={problem.id}>
-            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-              <CardContent sx={{ flexGrow: 1 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                  <Typography variant={isMobile ? "h3" : "h2"} sx={{ mr: 2 }}>
-                    {problem.icon}
-                  </Typography>
-                  <Box>
-                    <Typography variant={isMobile ? "h6" : "h5"} component="h3" gutterBottom>
-                      {problem.title}
+      <Box sx={{ pb: { xs: 6, md: 8 } }}>
+        <Grid container spacing={{ xs: 3, md: 4 }}>
+          {getFilteredProblems().map((problem) => (
+            <Grid item xs={12} sm={6} lg={4} key={problem.id}>
+              <Card sx={{ 
+                height: '100%', 
+                display: 'flex', 
+                flexDirection: 'column',
+                transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+                '&:hover': {
+                  transform: 'translateY(-4px)',
+                  boxShadow: theme.shadows[8]
+                }
+              }}>
+                <CardContent sx={{ flexGrow: 1, p: { xs: 2, md: 3 } }}>
+                  <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: { xs: 2, md: 3 } }}>
+                    <Typography 
+                      variant="h3" 
+                      sx={{ 
+                        mr: { xs: 1.5, sm: 2 }, 
+                        fontSize: { xs: '2rem', sm: '2.5rem' },
+                        flexShrink: 0
+                      }}
+                    >
+                      {problem.icon}
                     </Typography>
-                    <Box sx={{ display: 'flex', gap: 1, mb: 1, flexWrap: 'wrap' }}>
-                      <Chip
-                        label={tabLabels[selectedTab].split(' ')[0]}
-                        color={getDifficultyColor(tabLabels[selectedTab].split(' ')[0])}
-                        size="small"
-                      />
-                      <Chip label={problem.category} variant="outlined" size="small" />
+                    <Box sx={{ flexGrow: 1, minWidth: 0 }}>
+                      <Typography 
+                        variant="h6" 
+                        component="h3" 
+                        gutterBottom
+                        sx={{ 
+                          fontWeight: 'bold',
+                          fontSize: { xs: '1.1rem', sm: '1.25rem' },
+                          mb: { xs: 1, md: 1.5 }
+                        }}
+                      >
+                        {problem.title}
+                      </Typography>
+                      <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: { xs: 1.5, md: 2 } }}>
+                        <Chip
+                          label={problem.category}
+                          size="small"
+                          variant="outlined"
+                          sx={{ 
+                            fontSize: { xs: '0.75rem', sm: '0.8rem' },
+                            height: { xs: 20, sm: 24 }
+                          }}
+                        />
+                        <Chip
+                          label={`Scale: ${problem.scale}`}
+                          size="small"
+                          color="info"
+                          variant="outlined"
+                          sx={{ 
+                            fontSize: { xs: '0.75rem', sm: '0.8rem' },
+                            height: { xs: 20, sm: 24 }
+                          }}
+                        />
+                        <Chip
+                          label={`Complexity: ${problem.complexity}`}
+                          size="small"
+                          color="secondary"
+                          variant="outlined"
+                          sx={{ 
+                            fontSize: { xs: '0.75rem', sm: '0.8rem' },
+                            height: { xs: 20, sm: 24 }
+                          }}
+                        />
+                      </Box>
                     </Box>
                   </Box>
-                </Box>
-                
-                <Typography variant="body2" color="text.secondary" paragraph>
-                  {problem.description}
-                </Typography>
-
-                <Box sx={{ mb: 2 }}>
-                  <Typography variant="subtitle2" gutterBottom>
-                    Key Features:
+                  
+                  <Typography 
+                    variant="body2" 
+                    color="text.secondary"
+                    sx={{ 
+                      mb: { xs: 2, md: 3 },
+                      fontSize: { xs: '0.9rem', sm: '1rem' },
+                      lineHeight: 1.5
+                    }}
+                  >
+                    {problem.description}
                   </Typography>
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                    {problem.features.map((feature, index) => (
-                      <Chip
-                        key={index}
-                        label={feature}
-                        size="small"
-                        variant="outlined"
-                        sx={{ fontSize: '0.7rem' }}
-                      />
-                    ))}
+
+                  {/* Features */}
+                  <Box sx={{ mb: { xs: 2, md: 3 } }}>
+                    <Typography 
+                      variant="caption" 
+                      color="text.secondary"
+                      sx={{ 
+                        display: 'block',
+                        mb: 1,
+                        fontWeight: 'bold',
+                        textTransform: 'uppercase',
+                        fontSize: { xs: '0.7rem', sm: '0.75rem' }
+                      }}
+                    >
+                      Key Features:
+                    </Typography>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                      {problem.features.map((feature, index) => (
+                        <Chip
+                          key={index}
+                          label={feature}
+                          size="small"
+                          variant="outlined"
+                          sx={{ 
+                            fontSize: { xs: '0.7rem', sm: '0.75rem' },
+                            height: { xs: 18, sm: 20 },
+                            '& .MuiChip-label': {
+                              px: { xs: 1, sm: 1.5 }
+                            }
+                          }}
+                        />
+                      ))}
+                    </Box>
                   </Box>
-                </Box>
+                </CardContent>
+                
+                <CardActions sx={{ p: { xs: 2, md: 3 }, pt: 0 }}>
+                  <Button
+                    component={RouterLink}
+                    to={`/problems/${problem.id}`}
+                    variant="contained"
+                    fullWidth
+                    sx={{ 
+                      py: { xs: 1, sm: 1.5 },
+                      fontSize: { xs: '0.9rem', sm: '1rem' },
+                      fontWeight: 'bold'
+                    }}
+                  >
+                    View Details
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
 
-                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                  <Chip
-                    label={`Scale: ${problem.scale}`}
-                    color={getScaleColor(problem.scale)}
-                    size="small"
-                    variant="outlined"
-                  />
-                  <Chip
-                    label={`Complexity: ${problem.complexity}`}
-                    color={getDifficultyColor(problem.complexity)}
-                    size="small"
-                    variant="outlined"
-                  />
-                </Box>
-              </CardContent>
-              
-              <CardActions>
-                <Button
-                  component={RouterLink}
-                  to={`/problems/${problem.id}`}
-                  size="small"
-                  color="primary"
-                  fullWidth
-                >
-                  Learn Design
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-
-      {/* Empty State */}
-      {filteredProblems().length === 0 && (
-        <Box sx={{ textAlign: 'center', py: 8 }}>
-          <Typography variant="h6" color="text.secondary">
-            No problems found matching your search criteria.
-          </Typography>
-          <Button
-            onClick={() => setSearchQuery('')}
-            sx={{ mt: 2 }}
-          >
-            Clear Search
-          </Button>
-        </Box>
-      )}
+        {/* No Results Message */}
+        {getFilteredProblems().length === 0 && (
+          <Box sx={{ textAlign: 'center', py: { xs: 6, md: 8 } }}>
+            <Typography 
+              variant="h6" 
+              color="text.secondary"
+              sx={{ mb: 2, fontSize: { xs: '1rem', sm: '1.1rem' } }}
+            >
+              No problems found matching your search.
+            </Typography>
+            <Button
+              onClick={() => setSearchQuery('')}
+              variant="outlined"
+              sx={{ 
+                py: { xs: 1, sm: 1.5 },
+                px: { xs: 2, sm: 3 },
+                fontSize: { xs: '0.9rem', sm: '1rem' }
+              }}
+            >
+              Clear Search
+            </Button>
+          </Box>
+        )}
+      </Box>
     </Container>
   );
 };
